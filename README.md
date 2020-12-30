@@ -2,9 +2,12 @@
 Quick reference Guide for AWS Solution Architects
 
 EC2
-•	You are limited to running up to a total of 20 On-Demand instances across the instance family, purchasing 20 Reserved Instances, and requesting Spot Instances per your dynamic spot limit per region (by default)
-•	AMIs are regional. You can only launch an AMI from the region in which it is stored.
-•	Public IPv4 addresses are lost when the instance is stopped but private addresses (IPv4 and IPv6) are retained. Elastic IPs are retained when the instance is stopped
+
+You are limited to running up to a total of 20 On-Demand instances across the instance family, purchasing 20 Reserved Instances, and requesting Spot Instances per your dynamic spot limit per region (by default)
+
+AMIs are regional. You can only launch an AMI from the region in which it is stored.
+
+Public IPv4 addresses are lost when the instance is stopped but private addresses (IPv4 and IPv6) are retained. Elastic IPs are retained when the instance is stopped
 •	All accounts are limited to 5 elastic IP’s per region by default
 •	By default EC2 instances come with a private IP
 •	By default Eth0 is the only Elastic Network Interface (ENI) created with an EC2 instance when launched

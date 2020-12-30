@@ -716,121 +716,146 @@ All features
 Limit of 20 linked accounts for consolidated billing (default)
 
 Active Directory Service for Microsoft Active Directory
-•	Fully managed AWS services on AWS infrastructure
-•	Best choice if you have more than 5000 users and/or need a trust relationship set up
-•	Includes software pathing, replication, automated backups, replacing failed DCs and monitoring
-•	Runs on a Windows Server
-•	Requires a VPN or Direct Connect connection
-•	You can also use Active Directory credentials to authenticate to the AWS management console without having to set up SAML authentication
-•	Monitoring provided through CloudTrail, notifications through SNS, daily automated snapshots
-•	Two editions:
-o	Standard for up to 5000 users and 30,000 directory objects
-o	Enterprise for large organizations up to 50,000 objects
+------------------------------
+
+
+Fully managed AWS services on AWS infrastructure
+Best choice if you have more than 5000 users and/or need a trust relationship set up
+Includes software pathing, replication, automated backups, replacing failed DCs and monitoring
+Runs on a Windows Server
+Requires a VPN or Direct Connect connection
+You can also use Active Directory credentials to authenticate to the AWS management console without having to set up SAML authentication
+Monitoring provided through CloudTrail, notifications through SNS, daily automated snapshots
+Two editions:
+Standard for up to 5000 users and 30,000 directory objects
+Enterprise for large organizations up to 50,000 objects
 
 Simple AD
-•	An inexpensive Active Directory-compatible service with common directory features
-•	Standalone, fully managed, directory on the AWS cloud
-•	Simple AD is generally the least expensive option
-•	Best choice for less than 5000 users and don’t need advanced AD features
-•	AWS provides monitoring, daily snapshots, and recovery services
-•	Available in two editions:
-o	Small – supports up to 500 users (approximately 2000 objects)
-o	Large – supports up to 5000 users (approximately 20,000 objects)
-•	Not compatible with RDS SQL server
-•	Does not support trust relationships with other domains (use AWS MS AD)
+------------------------------
+
+An inexpensive Active Directory-compatible service with common directory features
+Standalone, fully managed, directory on the AWS cloud
+Simple AD is generally the least expensive option
+Best choice for less than 5000 users and don’t need advanced AD features
+AWS provides monitoring, daily snapshots, and recovery services
+Available in two editions:
+Small – supports up to 500 users (approximately 2000 objects)
+Large – supports up to 5000 users (approximately 20,000 objects)
+Not compatible with RDS SQL server
+Does not support trust relationships with other domains (use AWS MS AD)
+
 AD Connector
-•	AD Connector is a directory gateway for redirecting directory requests to your on-premise Active Directory
-•	Connects your existing on-premise AD to AWS
-•	Best choice when you want to use an existing Active Directory with AWS services
-•	AD Connector comes in two sizes:
-o	Small – designed for organizations up to 500 users
-o	Large – designed for organizations up to 5000 users
-•	The VPC must be connected to your on-premise network via VPN or Direct Connect
-•	Not compatible with RDS SQL
-•	You can use AD Connector for multi-factor authentication using RADIUS-based MFA infrastructure
+------------------------------
+
+AD Connector is a directory gateway for redirecting directory requests to your on-premise Active Directory
+Connects your existing on-premise AD to AWS
+Best choice when you want to use an existing Active Directory with AWS services
+AD Connector comes in two sizes:
+Small – designed for organizations up to 500 users
+Large – designed for organizations up to 5000 users
+The VPC must be connected to your on-premise network via VPN or Direct Connect
+Not compatible with RDS SQL
+You can use AD Connector for multi-factor authentication using RADIUS-based MFA infrastructure
+
+
+
+
+
+
 
 AWS Support Plans
-•	There are 4 types of AWS support plans:
-o	Basic
-o	Developer
-o	Business
-o	Enterprise
+------------------------------
 
-Miscellaneous
-•	Use access levels to review IAM permissions
-•	You cannot restore a snapshot of a root volume without downtime
-•	Encryption has to be done during volume creation. You cannot create an encrypted snapshot of an unencrypted volume or change existing volume from unencrypted to encrypted
-•	You are limited to an aggregate of 100 TiB of PIOPS volumes per region
-•	There is no additional charge for AWS CloudFormation
-•	AWS Shield Standard, when used with Amazon CloudFront and Amazon Route 53, provides comprehensive protection against all known infrastructure layer (layer 3 and layer 4) attacks. For additional protection against application layer (layer 7) attacks, use AWS WAF to apply custom mitigation rules.
-•	Randomizing object names provides no value in upload speed, random prefixes are used for intensive read requests
-•	The SSH protocol uses TCP and port 22
-•	Windows uses RDP protocol and port 3389
-•	The ping command is a type of ICMP traffic 
-•	The term pilot light is often used to describe a DR scenario in which a minimal version of an environment is always running in the cloud.
-•	Outputs is an optional section of the CloudFormation template that describes the values that are returned whenever you view your stack's properties. 
-•	Backups must remain enabled for Read Replicas to work.
-•	AWS Trusted Advisor analyzes your AWS environment and provides best practice recommendations in these five categories: Cost Optimization, Performance, Fault Tolerance, Security, and Service Limits.
-•	When failing over, Amazon RDS simply flips the canonical name record (CNAME) in Route53 for your DB instance to point at the standby, which in turn is promoted to become the new primary.
-•	Instance types comprise varying combinations of CPU, memory, storage, and networking capacity
-•	Storage optimized instances are designed for workloads that require high, sequential read and write access to very large data sets on local storage. They are optimized to deliver tens of thousands of low-latency, random I/O operations per second (IOPS) to applications.
-•	Typical database block sizes range from 2 KB to 32 KB. Amazon Redshift uses a block size of 1 MB, which is more efficient and further reduces the number of I/O requests needed to perform any database loading or other operations that are part of query execution.
-•	RDS synchronously replicates the data to a standby instance in a different Availability Zone (AZ) that is in the same region and not in a different one
-•	AWS Key Management Service (KMS) is a multi-tenant, managed service that allows you to use and manage encryption keys. 
-•	AWS CloudHSM is a cloud-based hardware security module (HSM) that enables you to easily generate and use your own encryption keys on the AWS Cloud. 
-•	Remote Desktop connection to access your EC2 instance, you have to ensure that the Remote Desktop Protocol is allowed in the security group. By default, the server listens on TCP port 3389 and UDP port 3389.
-•	Enhanced networking uses single root I/O virtualization (SR-IOV) to provide high-performance networking capabilities on supported instance types. SR-IOV is a method of device virtualization that provides higher I/O performance and lower CPU utilization when compared to traditional virtualized network interfaces
-•	There is no additional charge for using enhanced networking.
-•	An Elastic IP address is a static IPv4 address designed for dynamic cloud computing. An Elastic IP address is a public IPv4 address, which is reachable from the internet. currently Elastic IP addresses for IPv6 is not supported. An Elastic IP address is for use in a specific region only.
-•	Use instance metadata and custom resource tags to track and identify your AWS resource
-•	You disable automated backups for a DB instance by setting the backup retention parameter to 0. Disabling automatic backups for a DB instance deletes all existing automated backups for the instance. If you disable and then re-enable automated backups, you are only able to restore starting from the time you re-enabled automated backups.
-•	A tag is a label that you or AWS assigns to an AWS resource. Each tag consists of a key and a value. A key can have more than one value. You can use tags to organize your resources, and cost allocation tags to track your AWS costs on a detailed level. AWS provides two types of cost allocation tags, an AWS generated tags and user-defined tags. All tags can take up to 24 hours to appear in the Billing and Cost Management console
-•	The route table entries enable EC2 instances in the subnet to use IPv4 to communicate with other instances in the VPC, and to communicate directly over the Internet
-•	All data transferred between any type of gateway appliance and AWS storage is encrypted using SSL. By default, all data stored by AWS Storage Gateway in S3 is encrypted server-side with Amazon S3-Managed Encryption Keys (SSE-S3)
-•	Throughput Optimized HDD is cheaper than HDD, it is primarily designed and used for frequently accessed, throughput-intensive workloads. Cold HDD perfectly fits for their infrequently accessed data and provides the lowest cost, unlike Throughput Optimized HDD
-•	To access EFS file systems from on-premises, you must have an AWS Direct Connect connection between your on-premises datacenter and your Amazon VPC. Amazon EFS does not support access over AWS VPN.
-•	When your computing needs change, you can modify your Standard or Convertible Reserved Instances and continue to take advantage of the billing benefit. You can modify the Availability Zone, scope, network platform, or instance size (within the same instance type) of your Reserved Instance. You can also sell your unused instance on the Reserved Instance Marketplace.
-•	Amazon EC2 requires Windows boot volumes to use MBR partitioning. As discussed in Partitioning Schemes, this means that boot volumes cannot be bigger than 2 TiB. 
-•	Linux boot volumes may be either MBR or GPT, and Linux GPT boot volumes are not subject to the 2-TiB limit.
-•	You should avoid booting from a RAID volume. Grub is typically installed on only one device in a RAID array, and if one of the mirrored devices fails, you may be unable to boot the operating system.
-•	An Elastic IP address is for use in a specific region only.
-•	A spread placement group supports a maximum of seven running instances per Availability Zone.
-CIDR
-•	To add a CIDR block to your VPC, the following rules apply:
-•	The allowed block size is between a /28 netmask and /16 netmask.
-•	The CIDR block must not overlap with any existing CIDR block that's associated with the VPC.
-•	You cannot increase or decrease the size of an existing CIDR block.
-•	To calculate the total number of IP addresses of a given CIDR Block, you simply need to follow the 2 easy steps below. Let's say you have a CIDR block /27: 
-•	Subtract 32 with the mask number :  (32 - 27) = 5
-•	Raise the number 2 to the power of the answer in Step #1 : 
-2^ 5 = (2 * 2 * 2 * 2 * 2) = 32
-•	The answer to Step #2 is the total number of IP addresses available in the given CIDR netmask. Don't forget that in AWS, the first 4 IP addresses and the last IP address in each subnet CIDR block are not available for you to use, and cannot be assigned to an instance.
-•	The /32 denotes one IP address and the /0 refers to the entire network
-•	When you create a VPC, you must specify an IPv4 CIDR block for the VPC. The allowed block size is between a /16 netmask (65,536 IP addresses) and /28 netmask (16 IP addresses). 
-
-CloudWatch Alarm that performs status checks on your EBS volume
-•	Volume status checks are automated tests that run every 5 minutes and return a pass or fail status.
-o	If all checks pass, the status of the volume is ok.
-o	If a check fails, the status of the volume is impaired.
-o	If the status is insufficient-data, the checks may still be in progress on the volume.
-
-VPC – EC2 DNS hostname
-•	When you launch an EC2 instance into a default VPC, AWS provides it with public and private DNS hostnames that correspond to the public IPv4 and private IPv4 addresses for the instance.
-•	However, when you launch an instance into a non-default VPC, AWS provides the instance with a private DNS hostname only. New instances will only be provided with public DNS hostname depending on these two DNS attributes: the DNS resolution and DNS hostnames, that you have specified for your VPC, and if your instance has a public IPv4 address.
-Disaster recovery strategy - Cost effective and to keep minimum version of application always available
-•	The term pilot light is often used to describe a DR scenario in which a minimal version of an environment is always running in the cloud. With AWS you can maintain a pilot light by configuring and running the most critical core elements of your system in AWS. When the time comes for recovery, you can rapidly provision a full-scale production environment around the critical core.
+There are 4 types of AWS support plans:
+Basic
+Developer
+Business
+Enterprise
 
 AWSPrivateLink 
-•	Use private ips inside vpc to communicate between aws services. You cannot load balance to EC2-Classic Instances when registering their Instance IDs as targets. However, if you link these EC2-Classic instances to the load balancer's VPC using ClassicLink and use the private IPs of these EC2-Classic instances as targets, then you can load balance to the EC2-Classic instances.
+------------------------------
+
+Use private ips inside vpc to communicate between aws services. You cannot load balance to EC2-Classic Instances when registering their Instance IDs as targets. However, if you link these EC2-Classic instances to the load balancer's VPC using ClassicLink and use the private IPs of these EC2-Classic instances as targets, then you can load balance to the EC2-Classic instances.
 
 User Data
-•	When you launch an instance in Amazon EC2, you have the option of passing user data to the instance that can be used to perform common automated configuration tasks and even run scripts after the instance starts
-•	You can pass two types of user data to Amazon EC2: shell scripts and cloud-init directives
-•	User data is data that is supplied by the user at instance launch in the form of a script
-•	User data is limited to 16KB
+------------------------------
+
+When you launch an instance in Amazon EC2, you have the option of passing user data to the instance that can be used to perform common automated configuration tasks and even run scripts after the instance starts
+You can pass two types of user data to Amazon EC2: shell scripts and cloud-init directives
+User data is data that is supplied by the user at instance launch in the form of a script
+User data is limited to 16KB
 
 System Status
-•	System status checks detect (StatusCheckFailed_System) problems with your instance that require AWS involvement to repair
-•	Instance status checks (StatusCheckFailed_Instance) detect problems that require your involvement to repair
-•	You can create Amazon CloudWatch alarms that monitor Amazon EC2 instances and automatically perform an action if the status check fails
+------------------------------
+
+System status checks detect (StatusCheckFailed_System) problems with your instance that require AWS involvement to repair
+Instance status checks (StatusCheckFailed_Instance) detect problems that require your involvement to repair
+You can create Amazon CloudWatch alarms that monitor Amazon EC2 instances and automatically perform an action if the status check fails
+
+
+Miscellaneous
+------------------------------
+
+Use access levels to review IAM permissions
+You cannot restore a snapshot of a root volume without downtime
+Encryption has to be done during volume creation. You cannot create an encrypted snapshot of an unencrypted volume or change existing volume from unencrypted to encrypted
+You are limited to an aggregate of 100 TiB of PIOPS volumes per region
+There is no additional charge for AWS CloudFormation
+AWS Shield Standard, when used with Amazon CloudFront and Amazon Route 53, provides comprehensive protection against all known infrastructure layer (layer 3 and layer 4) attacks. For additional protection against application layer (layer 7) attacks, use AWS WAF to apply custom mitigation rules.
+Randomizing object names provides no value in upload speed, random prefixes are used for intensive read requests
+The SSH protocol uses TCP and port 22
+Windows uses RDP protocol and port 3389
+The ping command is a type of ICMP traffic 
+The term pilot light is often used to describe a DR scenario in which a minimal version of an environment is always running in the cloud.
+Outputs is an optional section of the CloudFormation template that describes the values that are returned whenever you view your stack's properties. 
+Backups must remain enabled for Read Replicas to work.
+AWS Trusted Advisor analyzes your AWS environment and provides best practice recommendations in these five categories: Cost Optimization, Performance, Fault Tolerance, Security, and Service Limits.
+When failing over, Amazon RDS simply flips the canonical name record (CNAME) in Route53 for your DB instance to point at the standby, which in turn is promoted to become the new primary.
+Instance types comprise varying combinations of CPU, memory, storage, and networking capacity
+Storage optimized instances are designed for workloads that require high, sequential read and write access to very large data sets on local storage. They are optimized to deliver tens of thousands of low-latency, random I/O operations per second (IOPS) to applications.
+Typical database block sizes range from 2 KB to 32 KB. Amazon Redshift uses a block size of 1 MB, which is more efficient and further reduces the number of I/O requests needed to perform any database loading or other operations that are part of query execution.
+RDS synchronously replicates the data to a standby instance in a different Availability Zone (AZ) that is in the same region and not in a different one
+AWS Key Management Service (KMS) is a multi-tenant, managed service that allows you to use and manage encryption keys. 
+AWS CloudHSM is a cloud-based hardware security module (HSM) that enables you to easily generate and use your own encryption keys on the AWS Cloud. 
+Remote Desktop connection to access your EC2 instance, you have to ensure that the Remote Desktop Protocol is allowed in the security group. By default, the server listens on TCP port 3389 and UDP port 3389.
+Enhanced networking uses single root I/O virtualization (SR-IOV) to provide high-performance networking capabilities on supported instance types. SR-IOV is a method of device virtualization that provides higher I/O performance and lower CPU utilization when compared to traditional virtualized network interfaces
+There is no additional charge for using enhanced networking.
+An Elastic IP address is a static IPv4 address designed for dynamic cloud computing. An Elastic IP address is a public IPv4 address, which is reachable from the internet. currently Elastic IP addresses for IPv6 is not supported. An Elastic IP address is for use in a specific region only.
+Use instance metadata and custom resource tags to track and identify your AWS resource
+You disable automated backups for a DB instance by setting the backup retention parameter to 0. Disabling automatic backups for a DB instance deletes all existing automated backups for the instance. If you disable and then re-enable automated backups, you are only able to restore starting from the time you re-enabled automated backups.
+A tag is a label that you or AWS assigns to an AWS resource. Each tag consists of a key and a value. A key can have more than one value. You can use tags to organize your resources, and cost allocation tags to track your AWS costs on a detailed level. AWS provides two types of cost allocation tags, an AWS generated tags and user-defined tags. All tags can take up to 24 hours to appear in the Billing and Cost Management console
+The route table entries enable EC2 instances in the subnet to use IPv4 to communicate with other instances in the VPC, and to communicate directly over the Internet
+All data transferred between any type of gateway appliance and AWS storage is encrypted using SSL. By default, all data stored by AWS Storage Gateway in S3 is encrypted server-side with Amazon S3-Managed Encryption Keys (SSE-S3)
+Throughput Optimized HDD is cheaper than HDD, it is primarily designed and used for frequently accessed, throughput-intensive workloads. Cold HDD perfectly fits for their infrequently accessed data and provides the lowest cost, unlike Throughput Optimized HDD
+To access EFS file systems from on-premises, you must have an AWS Direct Connect connection between your on-premises datacenter and your Amazon VPC. Amazon EFS does not support access over AWS VPN.
+When your computing needs change, you can modify your Standard or Convertible Reserved Instances and continue to take advantage of the billing benefit. You can modify the Availability Zone, scope, network platform, or instance size (within the same instance type) of your Reserved Instance. You can also sell your unused instance on the Reserved Instance Marketplace.
+Amazon EC2 requires Windows boot volumes to use MBR partitioning. As discussed in Partitioning Schemes, this means that boot volumes cannot be bigger than 2 TiB. 
+Linux boot volumes may be either MBR or GPT, and Linux GPT boot volumes are not subject to the 2-TiB limit.
+You should avoid booting from a RAID volume. Grub is typically installed on only one device in a RAID array, and if one of the mirrored devices fails, you may be unable to boot the operating system.
+An Elastic IP address is for use in a specific region only.
+A spread placement group supports a maximum of seven running instances per Availability Zone.
+CIDR
+To add a CIDR block to your VPC, the following rules apply:
+The allowed block size is between a /28 netmask and /16 netmask.
+The CIDR block must not overlap with any existing CIDR block that's associated with the VPC.
+You cannot increase or decrease the size of an existing CIDR block.
+To calculate the total number of IP addresses of a given CIDR Block, you simply need to follow the 2 easy steps below. Let's say you have a CIDR block /27: 
+Subtract 32 with the mask number :  (32 - 27) = 5
+Raise the number 2 to the power of the answer in Step #1 : 
+2^ 5 = (2 * 2 * 2 * 2 * 2) = 32
+The answer to Step #2 is the total number of IP addresses available in the given CIDR netmask. Don't forget that in AWS, the first 4 IP addresses and the last IP address in each subnet CIDR block are not available for you to use, and cannot be assigned to an instance.
+The /32 denotes one IP address and the /0 refers to the entire network
+When you create a VPC, you must specify an IPv4 CIDR block for the VPC. The allowed block size is between a /16 netmask (65,536 IP addresses) and /28 netmask (16 IP addresses). 
+
+CloudWatch Alarm that performs status checks on your EBS volume
+Volume status checks are automated tests that run every 5 minutes and return a pass or fail status.
+If all checks pass, the status of the volume is ok.
+If a check fails, the status of the volume is impaired.
+If the status is insufficient-data, the checks may still be in progress on the volume.
+
+VPC – EC2 DNS hostname
+When you launch an EC2 instance into a default VPC, AWS provides it with public and private DNS hostnames that correspond to the public IPv4 and private IPv4 addresses for the instance.
+However, when you launch an instance into a non-default VPC, AWS provides the instance with a private DNS hostname only. New instances will only be provided with public DNS hostname depending on these two DNS attributes: the DNS resolution and DNS hostnames, that you have specified for your VPC, and if your instance has a public IPv4 address.
+Disaster recovery strategy - Cost effective and to keep minimum version of application always available
+The term pilot light is often used to describe a DR scenario in which a minimal version of an environment is always running in the cloud. With AWS you can maintain a pilot light by configuring and running the most critical core elements of your system in AWS. When the time comes for recovery, you can rapidly provision a full-scale production environment around the critical core.
 

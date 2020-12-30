@@ -150,8 +150,8 @@ Scales up to 32vCPUs and 244GB RAM
 Can handle the loss of up to two copies of data without affecting DB write availability and up to three copies without affecting read availability
 Two types of replication: Aurora replica (up to 15), MySQL Read Replica (up to 5)
 Automatic failover is available for Aurora replicas only
-	If you have an Amazon Aurora Replica in the same or a different Availability Zone, when failing over, Amazon Aurora flips the canonical name record (CNAME) for your DB Instance to point at the healthy replica, which in turn is promoted to become the new primary. Start-to-finish, failover typically completes within 30 seconds.
-	If you do not have an Amazon Aurora Replica (i.e. single instance), Aurora will first attempt to create a new DB Instance in the same Availability Zone as the original instance. If unable to do so, Aurora will attempt to create a new DB Instance in a different Availability Zone. From start to finish, failover typically completes in under 15 minutes.
+If you have an Amazon Aurora Replica in the same or a different Availability Zone, when failing over, Amazon Aurora flips the canonical name record (CNAME) for your DB Instance to point at the healthy replica, which in turn is promoted to become the new primary. Start-to-finish, failover typically completes within 30 seconds.
+If you do not have an Amazon Aurora Replica (i.e. single instance), Aurora will first attempt to create a new DB Instance in the same Availability Zone as the original instance. If unable to do so, Aurora will attempt to create a new DB Instance in a different Availability Zone. From start to finish, failover typically completes in under 15 minutes.
 Automated Backups
 When automated backups are turned on for your DB Instance, Amazon RDS automatically performs a full daily snapshot of your data (during your preferred backup window) and captures transaction logs (as updates to your DB Instance are made)
 Automated backups are enabled by default and data is stored on S3 and is equal to the size of the DB
@@ -165,456 +165,555 @@ You cannot restore from a DB snapshot to an existing DB – a new instance is cr
 Only default DB parameters and security groups are restored – you must manually associate all other DB parameters and SGs
 
 Dynamo DB
-•	Amazon DynamoDB is a fully managed cloud database and supports both document and key-value store models
-•	Amazon DynamoDB stores three geographically distributed replicas of each table to enable high availability and data durability
-•	Data is synchronously replicated across 3 AZs
-•	An item is a collection of attributes
-•	The aggregate size of an item cannot exceed 400KB including keys and all attributes
-•	Can store pointers to objects in S3, including items over 400KB
-•	DynamoDB Streams help you to keep a list of item level changes or provide a list of item level changes that have taken place in the last 24hrs
-•	Store more frequently and less frequently accessed data in separate tables
-•	Push button scaling without downtime
-•	You can scale down only 4 times per calendar day
-•	These are the limits unless you request a higher amount:
+------------------------------
+
+Amazon DynamoDB is a fully managed cloud database and supports both document and key-value store models
+Amazon DynamoDB stores three geographically distributed replicas of each table to enable high availability and data durability
+Data is synchronously replicated across 3 AZs
+An item is a collection of attributes
+The aggregate size of an item cannot exceed 400KB including keys and all attributes
+Can store pointers to objects in S3, including items over 400KB
+DynamoDB Streams help you to keep a list of item level changes or provide a list of item level changes that have taken place in the last 24hrs
+Store more frequently and less frequently accessed data in separate tables
+Push button scaling without downtime
+You can scale down only 4 times per calendar day
+These are the limits unless you request a higher amount:
 US East (N. Virginia) Region:
-•	Per table – 40,000 read capacity units and 40,000 write capacity units
-•	Per account – 80,000 read capacity units and 80,000 write capacity units
+Per table – 40,000 read capacity units and 40,000 write capacity units
+Per account – 80,000 read capacity units and 80,000 write capacity units
+
 All Other Regions:
-•	Per table – 10,000 read capacity units and 10,000 write capacity units
-•	Per account – 20,000 read capacity units and 20,000 write capacity units
-•	Global tables provide automatic multi-master replication to AWS regions world-wide, so you can deliver low-latency data access to your users no matter where they are located
-•	256 tables per account per region
-•	One read capacity unit represents one strongly consistent read per second, or two eventually consistent reads per second for items up to 4KB
-•	One write capacity unit represents one write per second for an item up to 1KB
-•	DynamoDB is more cost effective for read heavy workloads
-•	Priced based on provisioned throughput (read/write) regardless of whether you use it or not
-•	Write throughput per hour for every 10 units
-•	Read throughput per hour for every 50 units
-•	Amazon DynamoDB is integrated with AWS Lambda so that you can create triggers—pieces of code that automatically respond to events in DynamoDB Streams
-•	Amazon DynamoDB stores structured data indexed by primary key, and allows low latency read and write access to items ranging from 1 byte up to 400KB
-•	In order to optimize your costs across AWS services, large objects or infrequently accessed data sets should be stored in Amazon S3, while smaller data elements or file pointers (possibly to Amazon S3 objects) are best saved in Amazon DynamoDB.
+Per table – 10,000 read capacity units and 10,000 write capacity units
+Per account – 20,000 read capacity units and 20,000 write capacity units
+Global tables provide automatic multi-master replication to AWS regions world-wide, so you can deliver low-latency data access to your users no matter where they are located
+256 tables per account per region
+One read capacity unit represents one strongly consistent read per second, or two eventually consistent reads per second for items up to 4KB
+One write capacity unit represents one write per second for an item up to 1KB
+DynamoDB is more cost effective for read heavy workloads
+Priced based on provisioned throughput (read/write) regardless of whether you use it or not
+Write throughput per hour for every 10 units
+Read throughput per hour for every 50 units
+Amazon DynamoDB is integrated with AWS Lambda so that you can create triggers—pieces of code that automatically respond to events in DynamoDB Streams
+Amazon DynamoDB stores structured data indexed by primary key, and allows low latency read and write access to items ranging from 1 byte up to 400KB
+In order to optimize your costs across AWS services, large objects or infrequently accessed data sets should be stored in Amazon S3, while smaller data elements or file pointers (possibly to Amazon S3 objects) are best saved in Amazon DynamoDB.
+
 RedShift
+------------------------------
+
 •	The size of a single node is 160GB and clusters can be created up to a petabyte or more
 •	Multi-node consists of Leader node & Compute nodes. There can be Up to 128 compute nodes
 •	Amazon RedShift Spectrum is a feature of Amazon Redshift that enables you to run queries against exabytes of unstructured data in Amazon S3, with no loading or ETL required
 •	Amazon Redshift retains backups for 1 day. You can configure this to be as long as 35 days
+
 Elasticache
-•	Elasticache EC2 nodes cannot be accessed from the Internet, nor can they be accessed by EC2 instances in other VPCs
-•	Can be on-demand or reserved instances too (but not Spot instances)
-•	Access to Elasticache nodes is controlled by VPC security groups and subnet groups (when deployed in a VPC)
-•	You cannot move an existing Amazon ElastiCache Cluster from outside VPC into a VPC
-•	You can run a maximum of 100 nodes per region. If you need more nodes, please fill in the ElastiCache Limit Increase Request form.
-•	There are two types of ElastiCache engine:
-•	Memcached 
-•	simplest model, can run large nodes with multiple cores/threads, can be scaled in and out, can cache objects such as DBs
-•	Not persistent
-•	Ideal front-end for data stores (RDS, Dynamo DB etc.)
-•	Does not support multi-AZ failover or replication
-•	Does not support snapshots
-•	You can place nodes in different AZs
-•	Redis 
-•	complex model, supports encryption, master / slave replication, cross AZ (HA), automatic failover and backup/restore
-•	Data is persistent
-•	Can be used as a datastore
-•	Scales by adding shards, not nodes
-•	A Redis shard is a subset of the cluster’s keyspace, that can include a primary node and zero or more read-replicas
-•	Multi-AZ is possible using read replicas in another AZ in the same region
-•	Charges
-•	Pricing is per Node-hour consumed for each Node Type
-•	Partial Node-hours consumed are billed as full hours
-•	There is no charge for data transfer between Amazon EC2 and Amazon Elasticache within the same Availability Zone
+------------------------------
+
+Elasticache EC2 nodes cannot be accessed from the Internet, nor can they be accessed by EC2 instances in other VPCs
+Can be on-demand or reserved instances too (but not Spot instances)
+Access to Elasticache nodes is controlled by VPC security groups and subnet groups (when deployed in a VPC)
+You cannot move an existing Amazon ElastiCache Cluster from outside VPC into a VPC
+You can run a maximum of 100 nodes per region. If you need more nodes, please fill in the ElastiCache Limit Increase Request form.
+There are two types of ElastiCache engine:
+
+Memcached 
+------------------------------
+
+simplest model, can run large nodes with multiple cores/threads, can be scaled in and out, can cache objects such as DBs
+Not persistent
+Ideal front-end for data stores (RDS, Dynamo DB etc.)
+Does not support multi-AZ failover or replication
+Does not support snapshots
+You can place nodes in different AZs
+
+Redis 
+------------------------------
+
+complex model, supports encryption, master / slave replication, cross AZ (HA), automatic failover and backup/restore
+Data is persistent
+Can be used as a datastore
+Scales by adding shards, not nodes
+A Redis shard is a subset of the cluster’s keyspace, that can include a primary node and zero or more read-replicas
+Multi-AZ is possible using read replicas in another AZ in the same region
+Charges
+Pricing is per Node-hour consumed for each Node Type
+Partial Node-hours consumed are billed as full hours
+There is no charge for data transfer between Amazon EC2 and Amazon Elasticache within the same Availability Zone
+
 Snowball
-•	Uses 256-bit encryption (managed with the AWS KMS) and tamper-resistant enclosures with TPM
-•	Snowball (80TB) (50TB model available only in the USA)
-•	Snowball Edge (100TB) comes with onboard storage and compute capabilities
-•	Snowmobile – exabyte scale with up to 100PB per Snowmobile
-•	Snowball can import to S3 or export from S3
-•	Import/export is when you send your own disks into AWS – this is being deprecated in favour of Snowball
-•	Snowball must be ordered from and returned to the same region
+------------------------------
+
+Uses 256-bit encryption (managed with the AWS KMS) and tamper-resistant enclosures with TPM
+Snowball (80TB) (50TB model available only in the USA)
+Snowball Edge (100TB) comes with onboard storage and compute capabilities
+Snowmobile – exabyte scale with up to 100PB per Snowmobile
+Snowball can import to S3 or export from S3
+Import/export is when you send your own disks into AWS – this is being deprecated in favour of Snowball
+Snowball must be ordered from and returned to the same region
+
 VPC
-•	By default you can create up to 5 VPCs per region
-•	Public subnets are subnets that have:
-•	“Auto-assign public IPv4 address” set to “Yes”
-•	The subnet route table has an attached Internet Gateway
-•	Options for connecting to a VPC are:
-•	Hardware based VPN
-•	Direct Connect
-•	VPN CloudHub
-•	Software VPN
-•	Once the VPC is created you cannot change the CIDR block
-•	The first 4 and last 1 IP addresses in a subnet are reserved
-•	Each subnet must reside entirely within one Availability Zone and cannot span zones
-•	Routing	
-o	Each subnet has a route table the router uses to forward traffic within the VPC
-o	Up to 200 route tables per VPC
-o	Up to 50 route entries per route table
-o	Each subnet can only be associated with one route table
-o	Can assign one route table to multiple subnets
-•	You can only attach one Internet gateway to a custom VPC
-•	IPv6 addresses are all public and the range is allocated by AWS
-•	IGWs must be detached before they can be deleted
-•	Every EC2 instance has a primary interface known as eth0 which cannot be detached
-•	You can have up to 5 elastic IPs per account
-•	Elastic IPs are retained in your account whereas auto-assigned public IPs are released
+------------------------------
+
+By default you can create up to 5 VPCs per region
+Public subnets are subnets that have:
+“Auto-assign public IPv4 address” set to “Yes”
+The subnet route table has an attached Internet Gateway
+Options for connecting to a VPC are:
+Hardware based VPN
+Direct Connect
+VPN CloudHub
+Software VPN
+Once the VPC is created you cannot change the CIDR block
+The first 4 and last 1 IP addresses in a subnet are reserved
+Each subnet must reside entirely within one Availability Zone and cannot span zones
+Routing	
+Each subnet has a route table the router uses to forward traffic within the VPC
+Up to 200 route tables per VPC
+Up to 50 route entries per route table
+Each subnet can only be associated with one route table
+Can assign one route table to multiple subnets
+You can only attach one Internet gateway to a custom VPC
+IPv6 addresses are all public and the range is allocated by AWS
+IGWs must be detached before they can be deleted
+Every EC2 instance has a primary interface known as eth0 which cannot be detached
+You can have up to 5 elastic IPs per account
+Elastic IPs are retained in your account whereas auto-assigned public IPs are released
 
 NAT Gateway
-•	NAT gateways are managed for you by AWS, it can scale automatically up to 45Gbps.
-•	NAT GW is not associated with any security groups
-•	Egress only NAT gateways operate on IPv6 whereas NAT gateways operate on IPv4
-•	Port forwarding is not supported
+------------------------------
+
+NAT gateways are managed for you by AWS, it can scale automatically up to 45Gbps.
+NAT GW is not associated with any security groups
+Egress only NAT gateways operate on IPv6 whereas NAT gateways operate on IPv4
+Port forwarding is not supported
 
 Security Group
-•	Security groups act like a firewall at the instance level
-•	You can use security group names as the source or destination in other security groups
-•	You can use the security group name as a source in its own inbound rules
-•	Up to 5 security groups can be added per EC2 instance interface
-•	There is no limit on the number of EC2 instances within a security group
+------------------------------
+
+Security groups act like a firewall at the instance level
+You can use security group names as the source or destination in other security groups
+You can use the security group name as a source in its own inbound rules
+Up to 5 security groups can be added per EC2 instance interface
+There is no limit on the number of EC2 instances within a security group
 
 Network ACL’s
-•	Network ACL’s function at the subnet level
-•	The VPC router hosts the network ACL function
-•	NACLs only apply to traffic that is ingress or egress to the subnet not to traffic within the subnet
-•	All subnets must be associated with a network ACL
-•	NACL is the first line of defence, the security group is the second line
-•	Also recommended to have software firewalls installed on your instances
-•	Security Groups usually control the list of ports that are allowed to be used by your EC2 instances and the NACLs control which network or list of IP addresses can connect to your whole VPC.
-•	A network ACL contains a numbered list of rules that we evaluate in order, starting with the lowest numbered rule. The highest number that you can use for a rule is 32766
+------------------------------
+
+Network ACL’s function at the subnet level
+The VPC router hosts the network ACL function
+NACLs only apply to traffic that is ingress or egress to the subnet not to traffic within the subnet
+All subnets must be associated with a network ACL
+NACL is the first line of defence, the security group is the second line
+Also recommended to have software firewalls installed on your instances
+Security Groups usually control the list of ports that are allowed to be used by your EC2 instances and the NACLs control which network or list of IP addresses can connect to your whole VPC.
+A network ACL contains a numbered list of rules that we evaluate in order, starting with the lowest numbered rule. The highest number that you can use for a rule is 32766
 
 VPN
-•	A Virtual Private Gateway (VGW) is required on the AWS side
-•	A Customer Gateway is required on the customer side
-•	An Internet routable IP address is required on the customer gateway
-•	Two tunnels per connection must be configured for redundancy
-•	VPN CloudHub is used for hardware-based VPNs and allows you to configure your branch offices to go into a VPC and then connect that to the corporate DC
-•	Cannot access Elastic IPs on your VPC via the VPN – Elastic IPs can only be connected to via the Internet
+------------------------------
+
+A Virtual Private Gateway (VGW) is required on the AWS side
+A Customer Gateway is required on the customer side
+An Internet routable IP address is required on the customer gateway
+Two tunnels per connection must be configured for redundancy
+VPN CloudHub is used for hardware-based VPNs and allows you to configure your branch offices to go into a VPC and then connect that to the corporate DC
+Cannot access Elastic IPs on your VPC via the VPN – Elastic IPs can only be connected to via the Internet
 
 Enhanced Networking
-•	Enhanced networking provides higher bandwidth, higher packet-per-second (PPS) performance, and consistently lower inter-instance latencies
-•	If your packets-per-second rate appears to have reached its ceiling, you should consider moving to enhanced networking because you have likely reached the upper thresholds of the VIF driver
+Enhanced networking provides higher bandwidth, higher packet-per-second (PPS) performance, and consistently lower inter-instance latencies
+If your packets-per-second rate appears to have reached its ceiling, you should consider moving to enhanced networking because you have likely reached the upper thresholds of the VIF driver
 
 VPC Flow Logs
-•	Flow Logs capture information about the IP traffic going to and from network interfaces in a VPC
-•	Flow log data is stored using Amazon CloudWatch Logs
-•	Flow logs can be created at the following levels:
-o	VPC
-o	Subnet
-o	Network interface
-•	You can’t tag a flow log
-•	You can’t change the configuration of a flow log after it’s been created
+------------------------------
+
+Flow Logs capture information about the IP traffic going to and from network interfaces in a VPC
+Flow log data is stored using Amazon CloudWatch Logs
+Flow logs can be created at the following levels:
+VPC
+Subnet
+Network interface
+You can’t tag a flow log
+You can’t change the configuration of a flow log after it’s been created
+
 VPC Peering
-•	Peering connections can be created with VPCs in different regions(available in most regions now)
-•	There is no single point of failure or bandwidth bottleneck
-•	50 VPC peers per VPC, up to 125 by request
-•	VPC peering connection does not support edge to edge routing. This means that if either VPC in a peering relationship has one of the following connections, you cannot extend the peering relationship to that connection:
-•	A VPN connection or an AWS Direct Connect connection to a corporate network
-•	An internet connection through an internet gateway
-•	An internet connection in a private subnet through a NAT device
-•	A VPC endpoint to an AWS service; for example, an endpoint to Amazon S3.
-•	(IPv6) A ClassicLink connection. You can enable IPv4 communication between a linked EC2-Classic instance and instances in a VPC on the other side of a VPC peering connection. However, IPv6 is not supported in EC2-Classic, so you cannot extend this connection for IPv6 communication.
+------------------------------
+
+Peering connections can be created with VPCs in different regions(available in most regions now)
+There is no single point of failure or bandwidth bottleneck
+50 VPC peers per VPC, up to 125 by request
+VPC peering connection does not support edge to edge routing. This means that if either VPC in a peering relationship has one of the following connections, you cannot extend the peering relationship to that connection:
+A VPN connection or an AWS Direct Connect connection to a corporate network
+An internet connection through an internet gateway
+An internet connection in a private subnet through a NAT device
+A VPC endpoint to an AWS service; for example, an endpoint to Amazon S3.
+(IPv6) A ClassicLink connection. You can enable IPv4 communication between a linked EC2-Classic instance and instances in a VPC on the other side of a VPC peering connection. However, IPv6 is not supported in EC2-Classic, so you cannot extend this connection for IPv6 communication.
 
 VPC endpoints
-•	An Interface endpoint uses AWS PrivateLink and is an elastic network interface (ENI) with a private IP address that serves as an entry point for traffic destined to a supported service
-•	A gateway endpoint is a gateway that is a target for a specified route in your route table, used for traffic destined to a supported AWS service
-•	By default, IAM users do not have permission to work with endpoints
-•	You can create an IAM user policy that grants users the permissions to create, modify, describe, and delete endpoints
-•	Gateway endpoints are available for:
-o	DyanmoDB
-o	S3
+------------------------------
+
+An Interface endpoint uses AWS PrivateLink and is an elastic network interface (ENI) with a private IP address that serves as an entry point for traffic destined to a supported service
+A gateway endpoint is a gateway that is a target for a specified route in your route table, used for traffic destined to a supported AWS service
+By default, IAM users do not have permission to work with endpoints
+You can create an IAM user policy that grants users the permissions to create, modify, describe, and delete endpoints
+Gateway endpoints are available for:
+DyanmoDB
+S3
 Regional Edge Location
-•	An edge location is the location where content is cached (separate to AWS regions/AZs)
-•	Regional Edge Caches are located between origin web servers and global edge locations and have a larger cache
-•	Regional Edge caches are used for custom origins, but not Amazon S3 origins
-•	Dynamic content goes straight to the origin and does not flow through Regional Edge caches
-•	An origin is the origin of the files that the CDN will distribute
-•	Origins can be either an S3 bucket, an EC2 instance, an Elastic Load Balancer, or Route 53 – can also be external (non-AWS)
-•	A custom origin server is a HTTP server which can be an EC2 instance or an on-premise/non-AWS based web server
-•	Objects are cached for 24 hours by default
-•	CloudFront keeps persistent connections open with origin servers
+An edge location is the location where content is cached (separate to AWS regions/AZs)
+Regional Edge Caches are located between origin web servers and global edge locations and have a larger cache
+Regional Edge caches are used for custom origins, but not Amazon S3 origins
+Dynamic content goes straight to the origin and does not flow through Regional Edge caches
+An origin is the origin of the files that the CDN will distribute
+Origins can be either an S3 bucket, an EC2 instance, an Elastic Load Balancer, or Route 53 – can also be external (non-AWS)
+A custom origin server is a HTTP server which can be an EC2 instance or an on-premise/non-AWS based web server
+Objects are cached for 24 hours by default
+CloudFront keeps persistent connections open with origin servers
+
+
+
+
+
 Route53
-•	Amazon Route 53 is a highly available and scalable Domain Name System (DNS) service
-•	Route 53 offers the following functions:
-•	Domain name registry
-•	DNS resolution
-•	Health checking of resources
-•	Changes to Name Servers may not take effect for up to 48 hours due to the DNS record Time To Live (TTL) values
-•	AWS offer a 100% uptime SLA for Route 53
-•	There is a default limit of 50 domain names but this can be increased by contacting support
+------------------------------
+
+Amazon Route 53 is a highly available and scalable Domain Name System (DNS) service
+Route 53 offers the following functions:
+Domain name registry
+DNS resolution
+Health checking of resources
+Changes to Name Servers may not take effect for up to 48 hours due to the DNS record Time To Live (TTL) values
+AWS offer a 100% uptime SLA for Route 53
+There is a default limit of 50 domain names but this can be increased by contacting support
 
 Hosted Zones
-•	A hosted zone is a collection of records for a specified domain
-•	A hosted zone is analogous to a traditional DNS zone file; it represents a collection of records that can be managed together
-•	There are two types of zones:
-•	Public host zone – determines how traffic is routed on the Internet
-•	Private hosted zone for VPC – determines how traffic is routed within VPC (resources are not accessible outside the VPC)
-•	Health checks can be pointed at:
-•	Endpoints
-•	Status of other health checks
-•	Status of a CloudWatch alarm
+------------------------------
+
+A hosted zone is a collection of records for a specified domain
+A hosted zone is analogous to a traditional DNS zone file; it represents a collection of records that can be managed together
+There are two types of zones:
+Public host zone – determines how traffic is routed on the Internet
+Private hosted zone for VPC – determines how traffic is routed within VPC (resources are not accessible outside the VPC)
+Health checks can be pointed at:
+Endpoints
+Status of other health checks
+Status of a CloudWatch alarm
+
 API Gateway
-•	All of the APIs created with Amazon API Gateway expose HTTPS endpoints only 
-•	Supported data formats include JSON, XML, query string parameters, and request headers
-•	Can enable Cross Origin Resource Sharing (CORS) for multiple domain use with Javascript/AJAX
-•	API Gateway provides several features that assist with creating and managing APIs are Metering, Security, Resiliency, Operations Monitoring, Lifecycle Management
-•	API Gateway allows you to maintain a cache to store API responses
-•	SDK Generation for iOS, Android and JavaScript
-•	Request/response data transformation and API mocking
-•	Provides Swagger support
-•	With Amazon API Gateway, you only pay when your APIs are in use
+------------------------------
+
+All of the APIs created with Amazon API Gateway expose HTTPS endpoints only 
+Supported data formats include JSON, XML, query string parameters, and request headers
+Can enable Cross Origin Resource Sharing (CORS) for multiple domain use with Javascript/AJAX
+API Gateway provides several features that assist with creating and managing APIs are Metering, Security, Resiliency, Operations Monitoring, Lifecycle Management
+API Gateway allows you to maintain a cache to store API responses
+SDK Generation for iOS, Android and JavaScript
+Request/response data transformation and API mocking
+Provides Swagger support
+With Amazon API Gateway, you only pay when your APIs are in use
 Direct Connect
-•	Each AWS Direct Connect connection can be configured with one or more virtual interfaces (VIFs)
-•	Public VIFs allow access to public services such as S3, EC2, and DynamoDB
-•	Private VIFs allow access to your VPC
-•	From Direct Connect you can connect to all AZs within the region
-•	You can only have one 0.0.0.0/0 (all IP addresses) entry per route table
-•	You can bind multiple ports for higher bandwidth
-•	Available in 1Gbps and 10Gbps
-•	Speeds of 50Mbps, 100Mbps, 200Mbps, 300Mbps, 400Mbps, and 500Mbps can be purchased through AWS Direct Connect Partners
-•	For HA you must have 2 DX connections – can be active/active or active/standby
-•	You cannot extend your on-premise VLANs into the AWS cloud using Direct Connect
-•	Can aggregate up to 4 Direct Connect ports into a single connection using Link Aggregation Groups (LAG)
+Each AWS Direct Connect connection can be configured with one or more virtual interfaces (VIFs)
+Public VIFs allow access to public services such as S3, EC2, and DynamoDB
+Private VIFs allow access to your VPC
+From Direct Connect you can connect to all AZs within the region
+You can only have one 0.0.0.0/0 (all IP addresses) entry per route table
+You can bind multiple ports for higher bandwidth
+Available in 1Gbps and 10Gbps
+Speeds of 50Mbps, 100Mbps, 200Mbps, 300Mbps, 400Mbps, and 500Mbps can be purchased through AWS Direct Connect Partners
+For HA you must have 2 DX connections – can be active/active or active/standby
+You cannot extend your on-premise VLANs into the AWS cloud using Direct Connect
+Can aggregate up to 4 Direct Connect ports into a single connection using Link Aggregation Groups (LAG)
+
 Amazon CloudWatch
-•	Amazon CloudWatch is a monitoring service for AWS cloud resources and the applications you run on AWS
-•	CloudWatch is for performance monitoring (CloudTrail is for auditing)
-•	Monitor resources such as:
-•	EC2 instances
-•	DynamoDB tables
-•	RDS DB instances
-•	Custom metrics generated by applications and services
-•	Any log files generated by your applications
-•	Alarms can be used to monitor any Amazon CloudWatch metric in your account
-•	Basic monitoring = 5 mins (free for EC2 Instances, EBS volumes, ELBs and RDS DBs)
-•	Detailed monitoring = 1 min (chargeable)
-•	There is no standard metric for memory usage on EC2 instances
-•	Amazon CloudWatch uses Amazon SNS to send email
-•	CloudWatch retains metric data as follows: 
-•	Data points with a period of less than 60 seconds are available for 3 hours. These data points are high-resolution custom metrics.
-•	Data points with a period of 60 seconds (1 minute) are available for 15 days.
-•	Data points with a period of 300 seconds (5 minute) are available for 63 days.
-•	Data points with a period of 3600 seconds (1 hour) are available for 455 days (15 months).
-•	The CloudWatch Logs agent provides an automated way to send log data to CloudWatch Logs from Amazon EC2 instances. The agent is comprised of the following components:
-•	A plug-in to the AWS CLI that pushes log data to CloudWatch Logs.
-•	A script (daemon) that initiates the process to push data to CloudWatch Logs.
-•	A cron job that ensures that the daemon is always running.
+------------------------------
+
+Amazon CloudWatch is a monitoring service for AWS cloud resources and the applications you run on AWS
+CloudWatch is for performance monitoring (CloudTrail is for auditing)
+Monitor resources such as:
+EC2 instances
+DynamoDB tables
+RDS DB instances
+Custom metrics generated by applications and services
+Any log files generated by your applications
+Alarms can be used to monitor any Amazon CloudWatch metric in your account
+Basic monitoring = 5 mins (free for EC2 Instances, EBS volumes, ELBs and RDS DBs)
+Detailed monitoring = 1 min (chargeable)
+There is no standard metric for memory usage on EC2 instances
+Amazon CloudWatch uses Amazon SNS to send email
+CloudWatch retains metric data as follows: 
+Data points with a period of less than 60 seconds are available for 3 hours. These data points are high-resolution custom metrics.
+Data points with a period of 60 seconds (1 minute) are available for 15 days.
+Data points with a period of 300 seconds (5 minute) are available for 63 days.
+Data points with a period of 3600 seconds (1 hour) are available for 455 days (15 months).
+The CloudWatch Logs agent provides an automated way to send log data to CloudWatch Logs from Amazon EC2 instances. The agent is comprised of the following components:
+A plug-in to the AWS CLI that pushes log data to CloudWatch Logs.
+A script (daemon) that initiates the process to push data to CloudWatch Logs.
+A cron job that ensures that the daemon is always running.
+
  CloudTrail
-•	AWS CloudTrail is a web service that records activity made on your account and delivers log files to an Amazon S3 bucket
-•	CloudTrail records account activity and service events from most AWS services and logs the following records:
-•	The identity of the API caller
-•	The time of the API call
-•	The source IP address of the API caller
-•	The request parameters
-•	The response elements returned by the AWS service
-•	CloudTrail log file integrity validation feature allows you to determine whether a CloudTrail log file was unchanged, deleted, or modified since CloudTrail delivered it to the specified Amazon S3 bucket
-•	CloudTrail is per AWS account
-•	Trails can be configured to log data events and management events
-•	CloudTrail log files are encrypted using S3 Server Side Encryption (SSE)
-•	You can also enable encryption using SSE KMS for additional security
-•	CloudTrail is for auditing (CloudWatch is for performance monitoring)
-•	CloudTrail is about logging and saves a history of API calls for your AWS account
-•	CloudTrail provides visibility into user activity by recording actions taken on your account
-•	CloudWatch is used to collect and track metrics, collect and monitor log files, and set alarms
+------------------------------
+
+AWS CloudTrail is a web service that records activity made on your account and delivers log files to an Amazon S3 bucket
+CloudTrail records account activity and service events from most AWS services and logs the following records:
+The identity of the API caller
+The time of the API call
+The source IP address of the API caller
+The request parameters
+The response elements returned by the AWS service
+CloudTrail log file integrity validation feature allows you to determine whether a CloudTrail log file was unchanged, deleted, or modified since CloudTrail delivered it to the specified Amazon S3 bucket
+CloudTrail is per AWS account
+Trails can be configured to log data events and management events
+CloudTrail log files are encrypted using S3 Server Side Encryption (SSE)
+You can also enable encryption using SSE KMS for additional security
+CloudTrail is for auditing (CloudWatch is for performance monitoring)
+CloudTrail is about logging and saves a history of API calls for your AWS account
+CloudTrail provides visibility into user activity by recording actions taken on your account
+CloudWatch is used to collect and track metrics, collect and monitor log files, and set alarms
+
 OpsWorks
-•	AWS OpsWorks is a configuration management service that provides managed instances of Chef and Puppet 
-•	OpsWorks is an automation platform that transforms infrastructure into code
-•	OpsWorks consists of Stacks and Layers
+------------------------------
+
+AWS OpsWorks is a configuration management service that provides managed instances of Chef and Puppet 
+OpsWorks is an automation platform that transforms infrastructure into code
+OpsWorks consists of Stacks and Layers
+
 Cloud Formation
-•	AWS CloudFormation provides a common language for you to describe and provision all the infrastructure resources in your cloud environment
-•	CloudFormation can be used to provision a broad range of AWS resources
-•	Think of CloudFormation as deploying infrastructure as code
-•	Elastic Beanstalk is more focussed on deploying applications on EC2 (PaaS)
-•	CloudFormation can deploy Elastic Beanstalk-hosted applications however the reverse is not possible
-•	Provides WaitCondition function
-•	Can create roles in IAM
-•	VPCs can be created and customized
-•	VPC peering in the same AWS account can be performed
+------------------------------
+
+AWS CloudFormation provides a common language for you to describe and provision all the infrastructure resources in your cloud environment
+CloudFormation can be used to provision a broad range of AWS resources
+Think of CloudFormation as deploying infrastructure as code
+Elastic Beanstalk is more focussed on deploying applications on EC2 (PaaS)
+CloudFormation can deploy Elastic Beanstalk-hosted applications however the reverse is not possible
+Provides WaitCondition function
+Can create roles in IAM
+VPCs can be created and customized
+VPC peering in the same AWS account can be performed
+
 Amazon Elastic Transcoder
-•	Amazon Elastic Transcoder is a highly scalable, easy to use and cost effective way for developers and businesses to convert (or “transcode”) video and audio files from their source format into versions that will playback on devices like smartphones, tablets and PCs
-•	You are charged based on the duration of the content and the resolution or format of the media
-•	Picks up files from an input S3 bucket and saves the output to an output S3 bucket
+------------------------------
+
+Amazon Elastic Transcoder is a highly scalable, easy to use and cost effective way for developers and businesses to convert (or “transcode”) video and audio files from their source format into versions that will playback on devices like smartphones, tablets and PCs
+You are charged based on the duration of the content and the resolution or format of the media
+Picks up files from an input S3 bucket and saves the output to an output S3 bucket
+
 Amazon Kinesis
-•	Amazon Kinesis makes it easy to collect, process, and analyze real-time, streaming data so you can get timely insights and react quickly to new information
-•	There are four types of Kinesis service and these are Kinesis Video Streams, Kinesis Data Streams, Kinesis Data Firehose & Kinesis Data Analytics
-•	Kinesis Video Stream
-•	Durably stores, encrypts, and indexes video data streams, and allows access to data through easy-to-use APIs
-•	Stores data for 24 hours by default, up to 7 days
-•	Stores data in shards – 5 transaction per second for reads, up to a max read rate of 2MB per second and 1000 records per second for writes up to a max of 1MB per second
-•	Kinesis Data Streams 
-•	High-level architecture
-	Producers continually push data to Kinesis Data Streams
-	Consumers process the data in real time
-	Consumers can store their results using an AWS service such as Amazon DynamoDB, Amazon Redshift, or Amazon S3
-	Kinesis Streams applications are consumers that run on EC2 instances
-	Shards are uniquely identified groups or data records in a stream
-	Records are the data units stored in a Kinesis Stream
-	By default, records of a stream are accessible for up to 24 hours from the time they are added to the stream (can be raised to 7 days  by enabling extended data retention)
-•	The maximum size of a data blob (the data payload before Base64-encoding) within one record is 1 megabyte (MB)
-•	A shard is the base throughput unit of an Amazon Kinesis data stream
-•	One shard provides a capacity of 1MB/sec data input and 2MB/sec data output
-•	Each shard can support up to 1000 PUT records per second
-•	A stream is composed of one or more shards
-•	The time period from when a record is added to when it is no longer accessible is called the retention period. 
+------------------------------
+
+Amazon Kinesis makes it easy to collect, process, and analyze real-time, streaming data so you can get timely insights and react quickly to new information
+There are four types of Kinesis service and these are Kinesis Video Streams, Kinesis Data Streams, Kinesis Data Firehose & Kinesis Data Analytics
+Kinesis Video Stream
+Durably stores, encrypts, and indexes video data streams, and allows access to data through easy-to-use APIs
+Stores data for 24 hours by default, up to 7 days
+Stores data in shards – 5 transaction per second for reads, up to a max read rate of 2MB per second and 1000 records per second for writes up to a max of 1MB per second
+Kinesis Data Streams 
+High-level architecture
+Producers continually push data to Kinesis Data Streams
+Consumers process the data in real time
+Consumers can store their results using an AWS service such as Amazon DynamoDB, Amazon Redshift, or Amazon S3
+Kinesis Streams applications are consumers that run on EC2 instances
+Shards are uniquely identified groups or data records in a stream
+Records are the data units stored in a Kinesis Stream
+By default, records of a stream are accessible for up to 24 hours from the time they are added to the stream (can be raised to 7 days  by enabling extended data retention)
+The maximum size of a data blob (the data payload before Base64-encoding) within one record is 1 megabyte (MB)
+A shard is the base throughput unit of an Amazon Kinesis data stream
+One shard provides a capacity of 1MB/sec data input and 2MB/sec data output
+Each shard can support up to 1000 PUT records per second
+A stream is composed of one or more shards
+The time period from when a record is added to when it is no longer accessible is called the retention period. 
+
 Kinesis Firehose
-•	Kinesis Data Firehose is the easiest way to load streaming data into data stores and analytics tools
-•	Kinesis Data Streams can be used as the source(s) to Kinesis Data Firehose
-•	Firehose synchronously replicates data across three AZs as it is transported to destinations
-•	Each delivery stream stores data records for up to 24 hours
-•	The maximum size of a record (before Base64-encoding) is 1000 KB
-•	Firehose Destinations include:
-•	Amazon S3
-•	Amazon Redshift
-•	Amazon Elasticsearch Service
-•	Splunk
-•	Can encrypt data with an existing AWS Key Management Service (KMS) key
-•	Server-side-encryption can be used if Kinesis Streams is used as the data source
+------------------------------
+
+Kinesis Data Firehose is the easiest way to load streaming data into data stores and analytics tools
+Kinesis Data Streams can be used as the source(s) to Kinesis Data Firehose
+Firehose synchronously replicates data across three AZs as it is transported to destinations
+Each delivery stream stores data records for up to 24 hours
+The maximum size of a record (before Base64-encoding) is 1000 KB
+Firehose Destinations include:
+Amazon S3
+Amazon Redshift
+Amazon Elasticsearch Service
+Splunk
+Can encrypt data with an existing AWS Key Management Service (KMS) key
+Server-side-encryption can be used if Kinesis Streams is used as the data source
+
 Kinesis Data Analytics
-•	Amazon Kinesis Data Analytics is the easiest way to process and analyze real-time, streaming data
-•	Can use standard SQL queries to process Kinesis data streams
-•	A Kinesis Data Analytics application consists of three components:
-	Input – the streaming source for your application
-	Application code – a series of SQL statements that process input and produce output
-	Output – one or more in-application streams to hold intermediate results
-•	Kinesis Data Analytics supports two types of inputs: streaming data sources and reference data sources:
+------------------------------
+
+Amazon Kinesis Data Analytics is the easiest way to process and analyze real-time, streaming data
+Can use standard SQL queries to process Kinesis data streams
+A Kinesis Data Analytics application consists of three components:
+Input – the streaming source for your application
+Application code – a series of SQL statements that process input and produce output
+Output – one or more in-application streams to hold intermediate results
+Kinesis Data Analytics supports two types of inputs: streaming data sources and reference data sources.
+
 Amazon Workspaces
-•	Amazon WorkSpaces is a managed desktop computing service running on the AWS cloud
-•	Workspaces are persistent
-•	The user volume (D:) on the WorkSpace is backed up every 12 hours
-•	You do not need an AWS account to login to workspaces
+------------------------------
+
+Amazon WorkSpaces is a managed desktop computing service running on the AWS cloud
+Workspaces are persistent
+The user volume (D:) on the WorkSpace is backed up every 12 hours
+You do not need an AWS account to login to workspaces
+
 AWS IAM
-•	IAM is not used for application-level authentication
-•	Identity Federation (including AD, Facebook etc.) can be configured allowing secure access to resources in an AWS account without creating an IAM user account
-•	It is a best practice to always setup multi-factor authentication on the root account
-•	IAM is universal (global) and does not apply to regions
-•	IAM is eventually consistent
-•	You can allow users and services to assume a role
-•	Groups are collections of users and have policies attached to them
-•	A group is not an identity and cannot be identified as a principal in an IAM policy and VPC is also not a principal
-•	IAM replicates data across multiple data centres around the world
-•	Power user access allows all permissions except the management of groups and users in IAM
-•	Temporary security credentials consist of the AWS access key ID, secret access key, and security token
-•	IAM can assign temporary security credentials to provide users with temporary access to services/resources
-•	The sign-in URL includes the account ID or account alias, e.g:
-	https://My_AWS_Account_ID.signin.aws.amazon.com/console/
-•	Principals:
-	An entity that can take an action on an AWS resource
-	IAM users, roles, federated users, and applications are all AWS principals
-•	Requests:
-	Principals send requests via the Console, CLI, SDKs, or APIs
-	Requests are:
-	Actions (or operations) that the principal wants to perform
-	Resources upon which the actions are performed
-	Principal information including the environment from which the request was made
-•	Authentication:
-	A principal sending a request must be authenticated to send a request to AWS
-	To authenticate from the console, you must sign in with your user name and password
-	To authenticate from the API or CLI, you must provide your access key and secret key
-•	Authorization:
-	IAM uses values from the request context to check for matching policies and determines whether to allow or deny the request
-	IAM policies are stored in IAM as JSON documents and specify the permissions that are allowed or denied
-•	IAM policies can be:
-•	User (identity) based policies
-•	Resource-based policies
-•	Best practice for root accounts:
-	Don’t use the root user credentials
-	Don’t share the root user credentials
-	Create an IAM user and assign administrative permissions as required
-	Enable MFA
-•	IAM users can be created to represent applications and these are known as “service accounts”
-•	You can have up to 5000 users per AWS account
-•	You should create individual IAM accounts for users (best practice not to share accounts)
-•	Groups
-	Groups are collections of users and have policies attached to them
-	A group is not an identity and cannot be identified as a principal in an IAM policy
-	You cannot nest groups (groups within groups)
-•	A role can be assigned to a federated user who signs in using an external identity provider
-•	IAM users or AWS services can assume a role to obtain temporary security credentials that can be used to make AWS API calls
-•	Only one role can be assigned to an EC2 instance at a time
-•	Applications retrieve temporary security credentials from the instance metadata
-•	Policies are documents that define permissions and can be applied to users, groups and roles
-•	A permissions policy must also be attached to the user in the trusted account
-•	AWS recommends using Cognito for identity federation with Internet identity providers
+------------------------------
+
+IAM is not used for application-level authentication
+Identity Federation (including AD, Facebook etc.) can be configured allowing secure access to resources in an AWS account without creating an IAM user account
+It is a best practice to always setup multi-factor authentication on the root account
+IAM is universal (global) and does not apply to regions
+IAM is eventually consistent
+You can allow users and services to assume a role
+Groups are collections of users and have policies attached to them
+A group is not an identity and cannot be identified as a principal in an IAM policy and VPC is also not a principal
+IAM replicates data across multiple data centres around the world
+Power user access allows all permissions except the management of groups and users in IAM
+Temporary security credentials consist of the AWS access key ID, secret access key, and security token
+IAM can assign temporary security credentials to provide users with temporary access to services/resources
+The sign-in URL includes the account ID or account alias, e.g:
+https://My_AWS_Account_ID.signin.aws.amazon.com/console/
+Principals:
+An entity that can take an action on an AWS resource
+IAM users, roles, federated users, and applications are all AWS principals
+Requests:
+Principals send requests via the Console, CLI, SDKs, or APIs
+Requests are:
+Actions (or operations) that the principal wants to perform
+Resources upon which the actions are performed
+Principal information including the environment from which the request was made
+Authentication:
+A principal sending a request must be authenticated to send a request to AWS
+To authenticate from the console, you must sign in with your user name and password
+To authenticate from the API or CLI, you must provide your access key and secret key
+Authorization:
+IAM uses values from the request context to check for matching policies and determines whether to allow or deny the request
+IAM policies are stored in IAM as JSON documents and specify the permissions that are allowed or denied
+IAM policies can be:
+User (identity) based policies
+Resource-based policies
+Best practice for root accounts:
+Don’t use the root user credentials
+Don’t share the root user credentials
+Create an IAM user and assign administrative permissions as required
+Enable MFA
+IAM users can be created to represent applications and these are known as “service accounts”
+You can have up to 5000 users per AWS account
+You should create individual IAM accounts for users (best practice not to share accounts)
+Groups
+Groups are collections of users and have policies attached to them
+A group is not an identity and cannot be identified as a principal in an IAM policy
+You cannot nest groups (groups within groups)
+A role can be assigned to a federated user who signs in using an external identity provider
+IAM users or AWS services can assume a role to obtain temporary security credentials that can be used to make AWS API calls
+Only one role can be assigned to an EC2 instance at a time
+Applications retrieve temporary security credentials from the instance metadata
+Policies are documents that define permissions and can be applied to users, groups and roles
+A permissions policy must also be attached to the user in the trusted account
+AWS recommends using Cognito for identity federation with Internet identity providers
 AWS STS (Security Token Service)
-•	The AWS Security Token Service (STS) is a web service that enables you to request temporary, limited-privilege credentials for IAM users or for users that you authenticate (federated users)
-•	By default, AWS STS is available as a global service, and all AWS STS requests go to a single endpoint at https://sts.amazonaws.com
-•	The AWS STS API action returns temporary security credentials that consist of:
-•	An access key which consists of an access key ID and a secret ID
-•	A session token
-•	Expiration or duration of validity
-•	Users (or an application that the user runs) can use these credentials to access your resources
+The AWS Security Token Service (STS) is a web service that enables you to request temporary, limited-privilege credentials for IAM users or for users that you authenticate (federated users)
+By default, AWS STS is available as a global service, and all AWS STS requests go to a single endpoint at https://sts.amazonaws.com
+The AWS STS API action returns temporary security credentials that consist of:
+An access key which consists of an access key ID and a secret ID
+A session token
+Expiration or duration of validity
+Users (or an application that the user runs) can use these credentials to access your resources
 IAM Best Practices
-•	Lock away the AWS root user access keys
-•	Use groups to assign permissions to IAM users
-•	Enable MFA for privileged users
-•	Use roles for applications that run on AWS EC2 instances
-•	Delegate by using roles instead of sharing credentials
-•	Use policy conditions for extra security
-•	Monitor activity in your AWS account
-•	AWS Key Management Service (AWS KMS) 
-o	KMS is a managed service that makes it easy for you to create and control the encryption keys used to encrypt your data. The master keys that you create in AWS KMS are protected by FIPS 140-2 validated cryptographic modules. AWS KMS is integrated with most other AWS services that encrypt your data with encryption keys that you manage. AWS KMS is also integrated with AWS CloudTrail to provide encryption key usage logs to help meet your auditing, regulatory and compliance needs.
+Lock away the AWS root user access keys
+Use groups to assign permissions to IAM users
+Enable MFA for privileged users
+Use roles for applications that run on AWS EC2 instances
+Delegate by using roles instead of sharing credentials
+Use policy conditions for extra security
+Monitor activity in your AWS account
+
+AWS Key Management Service (AWS KMS)
+------------------------------
+ 
+KMS is a managed service that makes it easy for you to create and control the encryption keys used to encrypt your data. The master keys that you create in AWS KMS are protected by FIPS 140-2 validated cryptographic modules. AWS KMS is integrated with most other AWS services that encrypt your data with encryption keys that you manage. AWS KMS is also integrated with AWS CloudTrail to provide encryption key usage logs to help meet your auditing, regulatory and compliance needs.
+
 Elastic network interface
-•	Elastic network interface (ENI) is a logical networking component in a VPC that represents a virtual network card. You can attach a network interface to an EC2 instance in the following ways:
-•	When it's running (hot attach)
-•	When it's stopped (warm attach)
-•	When the instance is being launched (cold attach).
+------------------------------
+
+Elastic network interface (ENI) is a logical networking component in a VPC that represents a virtual network card. You can attach a network interface to an EC2 instance in the following ways:
+When it's running (hot attach)
+When it's stopped (warm attach)
+When the instance is being launched (cold attach).
+
 Amazon Data Lifecycle Manager
-•	Amazon DLM is used to automate the creation, retention, and deletion of snapshots taken to back up your Amazon EBS volumes. Automating snapshot management helps you to:
-•	Protect valuable data by enforcing a regular backup schedule.
-•	Retain backups as required by auditors or internal compliance.
-•	Reduce storage costs by deleting outdated backups.
-•	Combined with the monitoring features of Amazon CloudWatch Events and AWS CloudTrail, Amazon DLM provides a complete backup solution for EBS volumes at no additional cost
+------------------------------
+
+Amazon DLM is used to automate the creation, retention, and deletion of snapshots taken to back up your Amazon EBS volumes. Automating snapshot management helps you to:
+Protect valuable data by enforcing a regular backup schedule.
+Retain backups as required by auditors or internal compliance.
+Reduce storage costs by deleting outdated backups.
+Combined with the monitoring features of Amazon CloudWatch Events and AWS CloudTrail, Amazon DLM provides a complete backup solution for EBS volumes at no additional cost
+
 SNS
-•	SNS supports a wide variety of needs including event notification, monitoring applications, workflow systems, time-sensitive information updates, mobile applications, and any other application that generates or consumes notifications
-•	SNS Subscribers:
-•	HTTP/HTTPS
-•	Email/Email-JSON
-•	SQS
-•	Application
-•	Lambda
-•	SNS supports notifications over multiple transport protocols:
-•	HTTP/HTTPS – subscribers specify a URL as part of the subscription registration
-•	Email/Email-JSON – messages are sent to registered addresses as email (text-based or JSON-object)
-•	SQS – users can specify an SQS standard queue as the endpoint
-•	SMS – messages are sent to registered phone numbers as SMS text messages
-•	SNS supports CloudTrail auditing for authenticated calls
-•	Amazon SNS topic - Topic names are limited to 256 characters. Alphanumeric characters plus hyphens (-) and underscores (_) are allowed. Topic names must be unique within an AWS account. After you delete a topic, you can reuse the topic name. When a topic is created, Amazon SNS will assign a unique ARN (Amazon Resource Name) to the topic, which will include the service name (SNS), region, AWS ID of the user and the topic name
-•	For sending mails/notification, you should use SNS instead of SES (Simple Email Service) when you want to monitor your EC2 instances.
+------------------------------
+
+SNS supports a wide variety of needs including event notification, monitoring applications, workflow systems, time-sensitive information updates, mobile applications, and any other application that generates or consumes notifications
+SNS Subscribers:
+HTTP/HTTPS
+Email/Email-JSON
 SQS
-•	Messages are 256KB in size
-•	Messages can be kept in the queue from 1 minute to 14 days (default is 4 days)
-•	The visibility timeout is the amount of time a message is invisible in the queue after a reader picks up the message
-•	If a job is processed within the visibility timeout the message will be deleted
-•	The maximum visibility timeout for an Amazon SQS message is 12 hours
-•	An Amazon SQS message can contain up to 10 metadata attributes
-•	Queue names must be unique within a region
-•	Long polling - ReceiveMessageWaitTime is set to a non-zero value (up to 20 seconds)
-•	Short polling - ReceiveMessageWaitTime is set to 0
-•	SQS is PCI DSS level 1 compliant and HIPAA eligible
-•	In-flight messages are messages that have been picked up by a consumer but not yet deleted from the queue
-o	Standard queues have a limit of 120,000 in-flight messages per queue
-o	FIFO queues have a limit of 20,000 in-flight messages per queue
-•	Queue names can be up to 80 characters
-•	Messages are retained for 4 days by default up to 14 days
-•	FIFO queues support up to 3000 messages per second when batching or 300 per second otherwise
-•	The maximum messages size is 256KB
-•	CloudWatch considers a queue to be active for up to 6 hours if it contains any messages or if any API action accesses it
-•	Amazon Simple Queue Service (SQS) and Amazon Simple Workflow Service (SWF) are the services that you can use for creating a decoupled architecture in AWS
+Application
+Lambda
+SNS supports notifications over multiple transport protocols:
+HTTP/HTTPS – subscribers specify a URL as part of the subscription registration
+Email/Email-JSON – messages are sent to registered addresses as email (text-based or JSON-object)
+SQS – users can specify an SQS standard queue as the endpoint
+SMS – messages are sent to registered phone numbers as SMS text messages
+SNS supports CloudTrail auditing for authenticated calls
+Amazon SNS topic - Topic names are limited to 256 characters. Alphanumeric characters plus hyphens (-) and underscores (_) are allowed. Topic names must be unique within an AWS account. After you delete a topic, you can reuse the topic name. When a topic is created, Amazon SNS will assign a unique ARN (Amazon Resource Name) to the topic, which will include the service name (SNS), region, AWS ID of the user and the topic name
+For sending mails/notification, you should use SNS instead of SES (Simple Email Service) when you want to monitor your EC2 instances.
+
+
+SQS
+------------------------------
+
+Messages are 256KB in size
+Messages can be kept in the queue from 1 minute to 14 days (default is 4 days)
+The visibility timeout is the amount of time a message is invisible in the queue after a reader picks up the message
+If a job is processed within the visibility timeout the message will be deleted
+The maximum visibility timeout for an Amazon SQS message is 12 hours
+An Amazon SQS message can contain up to 10 metadata attributes
+Queue names must be unique within a region
+Long polling - ReceiveMessageWaitTime is set to a non-zero value (up to 20 seconds)
+Short polling - ReceiveMessageWaitTime is set to 0
+SQS is PCI DSS level 1 compliant and HIPAA eligible
+In-flight messages are messages that have been picked up by a consumer but not yet deleted from the queue
+Standard queues have a limit of 120,000 in-flight messages per queue
+FIFO queues have a limit of 20,000 in-flight messages per queue
+Queue names can be up to 80 characters
+Messages are retained for 4 days by default up to 14 days
+FIFO queues support up to 3000 messages per second when batching or 300 per second otherwise
+The maximum messages size is 256KB
+CloudWatch considers a queue to be active for up to 6 hours if it contains any messages or if any API action accesses it
+Amazon Simple Queue Service (SQS) and Amazon Simple Workflow Service (SWF) are the services that you can use for creating a decoupled architecture in AWS
+
 SWF
-•	SWF has a completion time of up to 1 year for workflow executions
-•	SWF uses a task-oriented API
-•	SWF ensures a task is assigned once and never duplicated
-•	A domain is a logical container for application resources such as workflows, activities, and executions
-•	SWF applications include the following logical components:
-o	Domains
-o	Workflows
-o	Activities
-o	Task Lists
-o	Workers
-o	Workflow Execution
+------------------------------
+
+SWF has a completion time of up to 1 year for workflow executions
+SWF uses a task-oriented API
+SWF ensures a task is assigned once and never duplicated
+A domain is a logical container for application resources such as workflows, activities, and executions
+SWF applications include the following logical components:
+Domains
+Workflows
+Activities
+Task Lists
+Workers
+Workflow Execution
 
 AWS Organizations
-•	Root account with organizational units and AWS accounts behind the OU’s
-•	Available in two feature sets:
-o	Consolidated billing
-o	All features
-•	Limit of 20 linked accounts for consolidated billing (default)
+------------------------------
+
+Root account with organizational units and AWS accounts behind the OU’s
+Available in two feature sets:
+Consolidated billing
+All features
+Limit of 20 linked accounts for consolidated billing (default)
 
 Active Directory Service for Microsoft Active Directory
 •	Fully managed AWS services on AWS infrastructure
@@ -734,3 +833,4 @@ System Status
 •	System status checks detect (StatusCheckFailed_System) problems with your instance that require AWS involvement to repair
 •	Instance status checks (StatusCheckFailed_Instance) detect problems that require your involvement to repair
 •	You can create Amazon CloudWatch alarms that monitor Amazon EC2 instances and automatically perform an action if the status check fails
+

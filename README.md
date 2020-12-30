@@ -2,145 +2,168 @@
 Quick reference Guide for AWS Solution Architects
 
 EC2
-
+-----------------
 You are limited to running up to a total of 20 On-Demand instances across the instance family, purchasing 20 Reserved Instances, and requesting Spot Instances per your dynamic spot limit per region (by default)
-
 AMIs are regional. You can only launch an AMI from the region in which it is stored.
+Public IPv4 addresses are lost when the instance is stopped but private addresses (IPv4 and IPv6) are retained. Elastic IPs are retained when the instance is stopped.
+All accounts are limited to 5 elastic IP’s per region by default
+By default EC2 instances come with a private IP
+By default Eth0 is the only Elastic Network Interface (ENI) created with an EC2 instance when launched
+Public IP addresses are assigned for instances in public subnets (VPC)
+To receive a history of all EC2 API calls (including VPC and EBS) made on your account, you simply turn on CloudTrail 
+The data stored on a local instance store will persist only as long as that instance is alive. However, data that is stored on an Amazon EBS volume will persist independently of the life of the instance.
+If your applications benefit from high packet-per-second performance and/or low latency networking, Enhanced Networking will provide significantly improved performance, consistence of performance and scalability. There is no additional fee for Enhanced Networking
+Amazon EC2 provides enhanced networking capabilities through the Elastic Network Adapter (ENA).To test whether enhanced networking is already enabled, verify that the ena module is installed on your instance and that the enaSupport attribute is set. 
+Price Model
+RIs provide you with a significant discount (up to 75%) compared to On-Demand instance pricing
+You have the flexibility to change families, OS types, and tenancies while benefitting from RI pricing when you use Convertible RIs
+The following are a few reasons why an instance might immediately terminate (i.e. while restart a stopped EC2 instance and it immediately changed from a pending state to a terminated state):
+You’ve reached your EBS volume limit
+An EBS snapshot is corrupt
+The root EBS volume is encrypted and you do not have permissions to access the KMS key for decryption
+The instance store-backed AMI that you used to launch the instance is missing a required part (an image.part.xx file)
+You can modify the Availability Zone, scope, network platform, or instance size of your Reserved Instance as long as it is within the same instance type.
+AWS Systems Manager Run Command lets you remotely and securely manage the configuration of your managed instances. A managed instance is any Amazon EC2 instance or on-premises machine in your hybrid environment that has been configured for Systems Manager
+Reserved Instance Marketplace is a platform that supports the sale of third-party and AWS customers' unused Standard Reserved Instances, which vary in terms of lengths and pricing options.
 
-Public IPv4 addresses are lost when the instance is stopped but private addresses (IPv4 and IPv6) are retained. Elastic IPs are retained when the instance is stopped
-•	All accounts are limited to 5 elastic IP’s per region by default
-•	By default EC2 instances come with a private IP
-•	By default Eth0 is the only Elastic Network Interface (ENI) created with an EC2 instance when launched
-•	Public IP addresses are assigned for instances in public subnets (VPC)
-•	To receive a history of all EC2 API calls (including VPC and EBS) made on your account, you simply turn on CloudTrail 
-•	The data stored on a local instance store will persist only as long as that instance is alive. However, data that is stored on an Amazon EBS volume will persist independently of the life of the instance.
-•	If your applications benefit from high packet-per-second performance and/or low latency networking, Enhanced Networking will provide significantly improved performance, consistence of performance and scalability. There is no additional fee for Enhanced Networking
-•	Amazon EC2 provides enhanced networking capabilities through the Elastic Network Adapter (ENA).To test whether enhanced networking is already enabled, verify that the ena module is installed on your instance and that the enaSupport attribute is set. 
-•	Price Model
-o	RIs provide you with a significant discount (up to 75%) compared to On-Demand instance pricing
-o	You have the flexibility to change families, OS types, and tenancies while benefitting from RI pricing when you use Convertible RIs
-•	The following are a few reasons why an instance might immediately terminate (i.e. while restart a stopped EC2 instance and it immediately changed from a pending state to a terminated state):
-o	You’ve reached your EBS volume limit
-o	An EBS snapshot is corrupt
-o	The root EBS volume is encrypted and you do not have permissions to access the KMS key for decryption
-o	The instance store-backed AMI that you used to launch the instance is missing a required part (an image.part.xx file)
-•	You can modify the Availability Zone, scope, network platform, or instance size of your Reserved Instance as long as it is within the same instance type.
-•	AWS Systems Manager Run Command lets you remotely and securely manage the configuration of your managed instances. A managed instance is any Amazon EC2 instance or on-premises machine in your hybrid environment that has been configured for Systems Manager
-•	Reserved Instance Marketplace is a platform that supports the sale of third-party and AWS customers' unused Standard Reserved Instances, which vary in terms of lengths and pricing options.
+
 AWS Lambda
-•	AWS Lambda allocates CPU power proportional to the memory you specify using the same ratio as a general purpose EC2 instance type
-•	Functions larger than 1536MB are allocated multiple CPU threads, and multi-threaded or multi-process code is needed to take advantage
-•	Any Lambda function invoked asynchronously is retried twice before the event is discarded. If the retries fail and you're unsure why, use Dead Letter Queues (DLQ) to direct unprocessed events to an Amazon SQS queue or an Amazon SNS topic to analyze the failure.
-•	You can update the configuration and request additional memory in 64 MB increments from 128MB to 3008 MB.
-o	There is no limit to the number of environment variables you can create as long as the total size of the set does not exceed 4 KB.
-o	Number of file descriptors 1,024
-o	Number of processes and threads (combined total) 1,024
-o	Concurrent executions (see Managing Concurrency) 1000
-•	AWS Lambda automatically monitors functions on your behalf, reporting metrics through Amazon CloudWatch. These metrics include total requests, latency, and error rates
+------------------------------
+
+AWS Lambda allocates CPU power proportional to the memory you specify using the same ratio as a general purpose EC2 instance type
+Functions larger than 1536MB are allocated multiple CPU threads, and multi-threaded or multi-process code is needed to take advantage
+Any Lambda function invoked asynchronously is retried twice before the event is discarded. If the retries fail and you're unsure why, use Dead Letter Queues (DLQ) to direct unprocessed events to an Amazon SQS queue or an Amazon SNS topic to analyze the failure.
+You can update the configuration and request additional memory in 64 MB increments from 128MB to 3008 MB.
+There is no limit to the number of environment variables you can create as long as the total size of the set does not exceed 4 KB.
+Number of file descriptors 1,024
+Number of processes and threads (combined total) 1,024
+Concurrent executions (see Managing Concurrency) 1000
+AWS Lambda automatically monitors functions on your behalf, reporting metrics through Amazon CloudWatch. These metrics include total requests, latency, and error rates
+
 S3
-•	Amazon S3 automatically scales to high request rates
-•	For example, your application can achieve at least 3,500 PUT/POST/DELETE and 5,500 GET requests per second per prefix in a bucket. There are no limits to the number of prefixes in a bucket
-•	You can setup access control to your buckets using:
-o	Bucket policies
-o	Access Control Lists
-•	S3 static website - Example: http://<bucketname>.s3-website-<region>.amazonaws.com
-•	Amazon S3 Transfer Acceleration enables fast, easy, and secure transfers of files over long distances between your client and your Amazon S3 bucket.
-•	Individual Amazon S3 objects can range in size from a minimum of 0 bytes to a maximum of 5 terabytes. The largest object that can be uploaded in a single PUT is 5 gigabytes..
-•	Multipart upload is recommended for objects of 100MB or larger:
-o	 Can be used for objects from 5MB up to 5TB
-o	 Must be used for objects larger than 5GB
-•	CRR is an Amazon S3 feature that automatically replicates data across AWS Regions
+------------------------------
+
+Amazon S3 automatically scales to high request rates
+For example, your application can achieve at least 3,500 PUT/POST/DELETE and 5,500 GET requests per second per prefix in a bucket. There are no limits to the number of prefixes in a bucket
+You can setup access control to your buckets using:
+Bucket policies
+Access Control Lists
+S3 static website - Example: http://<bucketname>.s3-website-<region>.amazonaws.com
+Amazon S3 Transfer Acceleration enables fast, easy, and secure transfers of files over long distances between your client and your Amazon S3 bucket.
+Individual Amazon S3 objects can range in size from a minimum of 0 bytes to a maximum of 5 terabytes. The largest object that can be uploaded in a single PUT is 5 gigabytes..
+Multipart upload is recommended for objects of 100MB or larger:
+Can be used for objects from 5MB up to 5TB
+Must be used for objects larger than 5GB
+CRR is an Amazon S3 feature that automatically replicates data across AWS Regions
 
 Amazon Athena is an interactive query service that makes it easy to analyze data in Amazon S3 using standard SQL. You can use Athena to process logs, perform ad-hoc analysis, and run interactive queries
 
 Glacier
-•	Data stored in Amazon Glacier is protected by default; only vault owners have access to the Amazon Glacier resources they create.
-•	With Amazon Glacier Select, you can now perform filtering and basic querying using a subset of SQL directly against your data in Amazon Glacier
-•	Glacier provides three retrieval options - Expedited, Standard, and Bulk. 
-•	The total volume of data and number of archives you can store are unlimited. Individual Amazon Glacier archives can range in size from 1 byte to 40 terabytes. The largest archive that can be uploaded in a single Upload request is 4 gigabytes
+------------------------------
+
+Data stored in Amazon Glacier is protected by default; only vault owners have access to the Amazon Glacier resources they create.
+With Amazon Glacier Select, you can now perform filtering and basic querying using a subset of SQL directly against your data in Amazon Glacier
+Glacier provides three retrieval options - Expedited, Standard, and Bulk. 
+The total volume of data and number of archives you can store are unlimited. Individual Amazon Glacier archives can range in size from 1 byte to 40 terabytes. The largest archive that can be uploaded in a single Upload request is 4 gigabytes
+
 EBS
-•	There is no direct way to encrypt an existing unencrypted EBS volume, or to remove encryption from an encrypted volume
-•	EBS volume data is replicated across multiple servers in an AZ
-•	EBS volumes must be in the same AZ as the instances they are attached to
-•	You cannot encrypt the EBS volume even if you unmount the volume. Remember that encryption has to be done during volume creation.
-•	You cannot create an encrypted snapshot of an unencrypted EBS volume or change existing volume from unencrypted to encrypted. You have to create new encrypted volume and transfer data to the new volume.
-•	Along with the monitoring features of Amazon CloudWatch Events and AWS CloudTrail, Amazon DLM (Data Lifecycle Manager) provides a complete backup solution for EBS volumes at no additional cost. Automate the creation of snapshots and add life cycle policies for old snapshots
-•	When you create an EBS volume in an Availability Zone, it is automatically replicated within that zone only to prevent data loss due to failure of any single hardware component. After you create a volume, you can attach it to any EC2 instance in the same Availability Zone.
-•	It is the EBS snapshots, not the EBS volume, that has a copy of the data which is stored redundantly in multiple Availability Zones.
-•	To keep a backup copy of your data, you can create a snapshot of an EBS volume, which is stored in Amazon S3
-•	You can increase the size of an EBS volume to as much as 16 TiB, but whether the OS recognizes all of that capacity depends on its own design characteristics and on how the volume is partitioned.
+------------------------------
+
+There is no direct way to encrypt an existing unencrypted EBS volume, or to remove encryption from an encrypted volume
+EBS volume data is replicated across multiple servers in an AZ
+EBS volumes must be in the same AZ as the instances they are attached to
+You cannot encrypt the EBS volume even if you unmount the volume. Remember that encryption has to be done during volume creation.
+You cannot create an encrypted snapshot of an unencrypted EBS volume or change existing volume from unencrypted to encrypted. You have to create new encrypted volume and transfer data to the new volume.
+Along with the monitoring features of Amazon CloudWatch Events and AWS CloudTrail, Amazon DLM (Data Lifecycle Manager) provides a complete backup solution for EBS volumes at no additional cost. Automate the creation of snapshots and add life cycle policies for old snapshots
+When you create an EBS volume in an Availability Zone, it is automatically replicated within that zone only to prevent data loss due to failure of any single hardware component. After you create a volume, you can attach it to any EC2 instance in the same Availability Zone.
+It is the EBS snapshots, not the EBS volume, that has a copy of the data which is stored redundantly in multiple Availability Zones.
+To keep a backup copy of your data, you can create a snapshot of an EBS volume, which is stored in Amazon S3
+You can increase the size of an EBS volume to as much as 16 TiB, but whether the OS recognizes all of that capacity depends on its own design characteristics and on how the volume is partitioned.
+
 Load Balancer
-•	Elastic Load Balancing provides access logs that capture detailed information about requests sent to your load balancer. Each log contains information such as the time the request was received, the client's IP address, latencies, request paths, and server responses. By default, its disabled
-•	If the load balancer nodes for your Classic Load Balancer can distribute requests regardless of Availability Zone, this is known as cross-zone load balancing. With cross-zone load balancing enabled, your load balancer nodes distribute incoming requests evenly across the Availability Zones enabled for your load balancer. Otherwise, each load balancer node distributes requests only to instances in its Availability Zone.
-•	Cross-zone load balancing is already enabled by default in Application Load Balancer.
-•	For each associated subnet that a Network Load Balancer is in, the Network Load Balancer can only support a single public/internet facing IP address
-•	ELBs are not responsible for terminating EC2 instances. Auto Scaling can terminate instances that fail health checks
-•	ALB allows containers to use dynamic host port mapping so that multiple tasks from the same service are allowed on the same container host
-•	ELB, like CloudFront, only supports valid TCP requests, so DDoS attacks such as UDP and SYN floods are not able to reach EC2 instances
-•	ELB also offers a single point of management and can serve as a line of defense between the internet and your backend, private EC2 instances
+------------------------------
+
+Elastic Load Balancing provides access logs that capture detailed information about requests sent to your load balancer. Each log contains information such as the time the request was received, the client's IP address, latencies, request paths, and server responses. By default, its disabled
+If the load balancer nodes for your Classic Load Balancer can distribute requests regardless of Availability Zone, this is known as cross-zone load balancing. With cross-zone load balancing enabled, your load balancer nodes distribute incoming requests evenly across the Availability Zones enabled for your load balancer. Otherwise, each load balancer node distributes requests only to instances in its Availability Zone.
+Cross-zone load balancing is already enabled by default in Application Load Balancer.
+For each associated subnet that a Network Load Balancer is in, the Network Load Balancer can only support a single public/internet facing IP address
+ELBs are not responsible for terminating EC2 instances. Auto Scaling can terminate instances that fail health checks
+ALB allows containers to use dynamic host port mapping so that multiple tasks from the same service are allowed on the same container host
+ELB, like CloudFront, only supports valid TCP requests, so DDoS attacks such as UDP and SYN floods are not able to reach EC2 instances
+ELB also offers a single point of management and can serve as a line of defense between the internet and your backend, private EC2 instances
 
 Auto Scaling group
-•	The cooldown period is a configurable setting for your Auto Scaling group that helps to ensure that it doesn't launch or terminate additional instances before the previous scaling activity takes effect. The default value is 300 sec. After the Auto Scaling group dynamically, scales using a simple scaling policy, it waits for the cooldown period to complete before resuming scaling activities.
-•	EC2 Auto Scaling provides you with an option to enable automatic scaling for one or more EC2 instances by attaching them to your existing Auto Scaling group. After the instances are attached, they become a part of the Auto Scaling group.
-•	The instance that you want to attach must meet the following criteria:
-o	The instance is in the running state.
-o	The AMI used to launch the instance must still exist.
-o	The instance is not a member of another Auto Scaling group.
-o	The instance is in the same Availability Zone as the Auto Scaling group.
-o	If the Auto Scaling group has an attached load balancer, the instance and the load balancer must both be in EC2-Classic or the same VPC. If the Auto Scaling group has an attached target group, the instance and the load balancer must both be in the same VPC.
-•	Whenever you create an Auto Scaling group, you must specify a launch configuration, a launch template, or an EC2 instance. You can't modify a launch configuration after you've created it.
-•	If any health check returns an unhealthy status the instance will be terminated
-•	If connection draining is enabled, Auto Scaling waits for in-flight requests to complete or timeout before terminating instances
-•	You cannot modify an ASG launch configuration, you must create a new launch configuration and specify the copied AMI
+------------------------------
+
+The cooldown period is a configurable setting for your Auto Scaling group that helps to ensure that it doesn't launch or terminate additional instances before the previous scaling activity takes effect. The default value is 300 sec. After the Auto Scaling group dynamically, scales using a simple scaling policy, it waits for the cooldown period to complete before resuming scaling activities.
+EC2 Auto Scaling provides you with an option to enable automatic scaling for one or more EC2 instances by attaching them to your existing Auto Scaling group. After the instances are attached, they become a part of the Auto Scaling group.
+The instance that you want to attach must meet the following criteria:
+The instance is in the running state.
+The AMI used to launch the instance must still exist.
+The instance is not a member of another Auto Scaling group.
+The instance is in the same Availability Zone as the Auto Scaling group.
+If the Auto Scaling group has an attached load balancer, the instance and the load balancer must both be in EC2-Classic or the same VPC. If the Auto Scaling group has an attached target group, the instance and the load balancer must both be in the same VPC.
+Whenever you create an Auto Scaling group, you must specify a launch configuration, a launch template, or an EC2 instance. You can't modify a launch configuration after you've created it.
+If any health check returns an unhealthy status the instance will be terminated
+If connection draining is enabled, Auto Scaling waits for in-flight requests to complete or timeout before terminating instances
+You cannot modify an ASG launch configuration, you must create a new launch configuration and specify the copied AMI
+
+
 RDS
-•	By default, customers are allowed to have up to a total of 40 Amazon RDS DB instances (only 10 of these can be Oracle or MS SQL unless you have your own licences)
-•	Events - You can use API calls to the Amazon RDS service to list the RDS events in the last 14 days (DescribeEvents API). You can view events from the last 14 days using the CLI. Using the AWS Console you can only view RDS events for the last 1 day
-•	Encryption at rest is supported for all DB types and uses AWS KMS
-•	You cannot encrypt an existing DB, you need to create a snapshot, copy it, encrypt the copy, then build an encrypted DB from the snapshot
-•	You can only scale RDS up (compute and storage)
-•	Scaling of storage can happen while the RDS instance is running without outage however there may be performance degradation. Scaling compute will cause downtime
-•	Multi-AZ RDS creates a replica in another AZ and synchronously replicates to it (DR only)
-•	Amazon Aurora supports a maximum DB size of 64 TiB
-•	All other RDS DB types support a maximum DB size of 16 TiB
-•	RDS-Magnetic is limited to a maximum size of 4 TiB & maximum of 1,000 IOPS
-•	Restored DBs will always be a new RDS instance with a new DNS endpoint
-•	Can restore up to the last 5 minutes
-•	With optional Multi-AZ deployments, Amazon RDS also manages synchronous data replication across Availability Zones with automatic failover.
-•	By default, customers are allowed to have up to a total of 40 Amazon RDS DB instances.
-o	10 can be Oracle or SQL Server DB instances under the "License Included" model. 
-o	RDS for SQL Server has a limit of 30 databases on a single DB instance.
-•	RDS for MySQL or MariaDB, you can access the slow query logs for your database to determine if there are slow-running SQL queries
-•	Amazon RDS retains backups of a DB Instance for a limited, user-specified period of time called the retention period, which by default is 7 days but can be set to up to 35 days.
-•	To use public connectivity, simply create your DB Instances with the Publicly Accessible option set to yes. With Publicly Accessible active, your DB Instances within a VPC will be fully accessible outside your VPC by default.
+------------------------------
+
+By default, customers are allowed to have up to a total of 40 Amazon RDS DB instances (only 10 of these can be Oracle or MS SQL unless you have your own licences)
+Events - You can use API calls to the Amazon RDS service to list the RDS events in the last 14 days (DescribeEvents API). You can view events from the last 14 days using the CLI. Using the AWS Console you can only view RDS events for the last 1 day
+Encryption at rest is supported for all DB types and uses AWS KMS
+You cannot encrypt an existing DB, you need to create a snapshot, copy it, encrypt the copy, then build an encrypted DB from the snapshot
+You can only scale RDS up (compute and storage)
+Scaling of storage can happen while the RDS instance is running without outage however there may be performance degradation. Scaling compute will cause downtime
+Multi-AZ RDS creates a replica in another AZ and synchronously replicates to it (DR only)
+Amazon Aurora supports a maximum DB size of 64 TiB
+All other RDS DB types support a maximum DB size of 16 TiB
+RDS-Magnetic is limited to a maximum size of 4 TiB & maximum of 1,000 IOPS
+Restored DBs will always be a new RDS instance with a new DNS endpoint
+Can restore up to the last 5 minutes
+With optional Multi-AZ deployments, Amazon RDS also manages synchronous data replication across Availability Zones with automatic failover.
+By default, customers are allowed to have up to a total of 40 Amazon RDS DB instances.
+10 can be Oracle or SQL Server DB instances under the "License Included" model. 
+RDS for SQL Server has a limit of 30 databases on a single DB instance.
+RDS for MySQL or MariaDB, you can access the slow query logs for your database to determine if there are slow-running SQL queries
+Amazon RDS retains backups of a DB Instance for a limited, user-specified period of time called the retention period, which by default is 7 days but can be set to up to 35 days.
+To use public connectivity, simply create your DB Instances with the Publicly Accessible option set to yes. With Publicly Accessible active, your DB Instances within a VPC will be fully accessible outside your VPC by default.
 Read Replicas
-o	Read replicas are used for read heavy DBs and replication is asynchronous
-o	You can have 5 read replicas of a production DB
-o	Read replicas are available for MySQL, PostgreSQL, MariaDB and Aurora (not SQL Server or Oracle)
-o	The read replicas storage type and instance class can be different from the source but the compute should be at least the performance of the source
-o	Read replicas can be in another region (uses asynchronous replication)
-o	DynamoDB and CloudFront do not have a Read Replica feature
-o	When you create or modify your DB instance to run as a Multi-AZ deployment, Amazon RDS automatically provisions and maintains a synchronous standby replica in a different Availability Zone. Updates to your DB Instance are synchronously replicated across Availability Zones to the standby
+Read replicas are used for read heavy DBs and replication is asynchronous
+You can have 5 read replicas of a production DB
+Read replicas are available for MySQL, PostgreSQL, MariaDB and Aurora (not SQL Server or Oracle)
+The read replicas storage type and instance class can be different from the source but the compute should be at least the performance of the source
+Read replicas can be in another region (uses asynchronous replication)
+DynamoDB and CloudFront do not have a Read Replica feature
+When you create or modify your DB instance to run as a Multi-AZ deployment, Amazon RDS automatically provisions and maintains a synchronous standby replica in a different Availability Zone. Updates to your DB Instance are synchronously replicated across Availability Zones to the standby
+
 Aurora
-o	High performance, low price
-o	Scales in 10GB increments
-o	Scales up to 32vCPUs and 244GB RAM
-o	2 copies of data are kept in each AZ with a minimum of 3 AZ’s (6 copies)
-o	Can handle the loss of up to two copies of data without affecting DB write availability and up to three copies without affecting read availability
-o	Two types of replication: Aurora replica (up to 15), MySQL Read Replica (up to 5)
-o	Automatic failover is available for Aurora replicas only
+------------------------------
+
+High performance, low price
+Scales in 10GB increments
+Scales up to 32vCPUs and 244GB RAM
+2 copies of data are kept in each AZ with a minimum of 3 AZ’s (6 copies)
+Can handle the loss of up to two copies of data without affecting DB write availability and up to three copies without affecting read availability
+Two types of replication: Aurora replica (up to 15), MySQL Read Replica (up to 5)
+Automatic failover is available for Aurora replicas only
 	If you have an Amazon Aurora Replica in the same or a different Availability Zone, when failing over, Amazon Aurora flips the canonical name record (CNAME) for your DB Instance to point at the healthy replica, which in turn is promoted to become the new primary. Start-to-finish, failover typically completes within 30 seconds.
 	If you do not have an Amazon Aurora Replica (i.e. single instance), Aurora will first attempt to create a new DB Instance in the same Availability Zone as the original instance. If unable to do so, Aurora will attempt to create a new DB Instance in a different Availability Zone. From start to finish, failover typically completes in under 15 minutes.
 Automated Backups
-o	When automated backups are turned on for your DB Instance, Amazon RDS automatically performs a full daily snapshot of your data (during your preferred backup window) and captures transaction logs (as updates to your DB Instance are made)
-o	Automated backups are enabled by default and data is stored on S3 and is equal to the size of the DB
-o	Amazon RDS retains backups of a DB Instance for a limited, user-specified period of time called the retention period, which by default is 7 days but can be up to 35 days
-o	The granularity of point-in-time recovery is 5 minutes
-o	Automated backups are deleted when you delete the RDS DB instance
+When automated backups are turned on for your DB Instance, Amazon RDS automatically performs a full daily snapshot of your data (during your preferred backup window) and captures transaction logs (as updates to your DB Instance are made)
+Automated backups are enabled by default and data is stored on S3 and is equal to the size of the DB
+Amazon RDS retains backups of a DB Instance for a limited, user-specified period of time called the retention period, which by default is 7 days but can be up to 35 days
+The granularity of point-in-time recovery is 5 minutes
+Automated backups are deleted when you delete the RDS DB instance
 DB Snapshot
-o	Restored DBs will always be a new RDS instance with a new DNS endpoint
-o	Can restore up to the last 5 minutes
-o	You cannot restore from a DB snapshot to an existing DB – a new instance is created when you restore
-o	Only default DB parameters and security groups are restored – you must manually associate all other DB parameters and SGs
+Restored DBs will always be a new RDS instance with a new DNS endpoint
+Can restore up to the last 5 minutes
+You cannot restore from a DB snapshot to an existing DB – a new instance is created when you restore
+Only default DB parameters and security groups are restored – you must manually associate all other DB parameters and SGs
+
 Dynamo DB
 •	Amazon DynamoDB is a fully managed cloud database and supports both document and key-value store models
 •	Amazon DynamoDB stores three geographically distributed replicas of each table to enable high availability and data durability
